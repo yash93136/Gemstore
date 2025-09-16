@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:gemstore/log_in.dart';
-import 'package:gemstore/sign_up.dart';
+
+import 'package:gemstore/splasnscreen.dart';
 
 void main() {
   runApp(const MyApp());
@@ -14,40 +14,15 @@ class MyApp extends StatefulWidget {
 }
 
 class _MyAppState extends State<MyApp> {
-  ThemeMode _themeMode = ThemeMode.light;
-
-  void toggleTheme() {
-    setState(() {
-      _themeMode = _themeMode == ThemeMode.light
-          ? ThemeMode.dark
-          : ThemeMode.light;
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      title: "Auth UI",
-      themeMode: _themeMode,
+      title: "whatsapp",
       theme: ThemeData(
-        brightness: Brightness.light,
-        primaryColor: Colors.brown[900],
-        inputDecorationTheme: const InputDecorationTheme(
-          border: UnderlineInputBorder(),
-        ),
+        colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
       ),
-      darkTheme: ThemeData(
-        brightness: Brightness.dark,
-        primaryColor: Colors.brown[200],
-        inputDecorationTheme: const InputDecorationTheme(
-          border: UnderlineInputBorder(),
-        ),
-      ),
-      routes: {
-        '/': (context) => LoginScreen(toggleTheme: toggleTheme),
-        '/signup': (context) => SignUpScreen(toggleTheme: toggleTheme),
-      },
+      home: Splasnscreen(),
     );
   }
 }
