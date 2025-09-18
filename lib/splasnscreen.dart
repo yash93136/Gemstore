@@ -33,7 +33,7 @@ class _SplasnscreenState extends State<Splasnscreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(height: 200),
+                  SizedBox(height: 350),
                   uihelper.CustomText(
                     text: "Welcome to GemStore! ",
                     color: Colors.white,

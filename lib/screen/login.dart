@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gemstore/modal/imagemodal.dart';
+import 'package:gemstore/screen/home/homescreen.dart';
 import 'package:gemstore/screen/sing_up.dart';
 
 class LoginScreen extends StatefulWidget {
@@ -71,7 +72,12 @@ class _LoginScreenState extends State<LoginScreen> {
                     vertical: 16,
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(builder: (context) => HomePage()),
+                  );
+                },
                 child: const Text(
                   "LOG IN",
                   style: TextStyle(color: Colors.white),
@@ -126,17 +132,6 @@ class _LoginScreenState extends State<LoginScreen> {
           ],
         ),
       ),
-    );
-  }
-
-  Widget _socialIcon(String asset) {
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey.shade300),
-        shape: BoxShape.circle,
-      ),
-      child: Image.asset(asset, width: 24, height: 24),
     );
   }
 }

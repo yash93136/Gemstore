@@ -79,7 +79,14 @@ class _SignupScreenState extends State<SignupScreen> {
                     vertical: 16,
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => const LoginScreen(),
+                    ),
+                  );
+                },
                 child: const Text(
                   "SIGN UP",
                   style: TextStyle(color: Colors.white),
