@@ -63,47 +63,80 @@ class _LoginScreenState extends State<LoginScreen> {
 
             const SizedBox(height: 30),
             Center(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.brown,
-                  shape: const StadiumBorder(),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 100,
-                    vertical: 16,
+              child: SizedBox(
+                width: 147,
+                height: 51,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.brown,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(26.5),
+                    ),
+                    elevation: 3, // Optional: adds slight shadow for depth
                   ),
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => HomePage()),
-                  );
-                },
-                child: const Text(
-                  "LOG IN",
-                  style: TextStyle(color: Colors.white),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const HomePage()),
+                    );
+                  },
+                  child: const Text(
+                    "LOG IN",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold, // Added for better emphasis
+                      letterSpacing: 1.0, // Optional: slight spacing
+                    ),
+                  ),
                 ),
               ),
             ),
 
             const SizedBox(height: 20),
             const Center(child: Text("or log in with")),
-            const SizedBox(height: 150),
+            const SizedBox(height: 50),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                IconButton(
-                  onPressed: () {},
-                  icon: Image.asset(AppImages.Apple, height: 30, width: 30),
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black, width: 1),
+                    shape: BoxShape.circle,
+                  ),
+                  child: IconButton(
+                    onPressed: () {},
+                    icon: Image.asset(AppImages.Apple, height: 30, width: 30),
+                    splashRadius: 24,
+                  ),
                 ),
                 const SizedBox(width: 20),
-                IconButton(
-                  onPressed: () {},
-                  icon: Image.asset(AppImages.Google, height: 30, width: 30),
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black, width: 1),
+                    shape: BoxShape.circle,
+                  ),
+                  child: IconButton(
+                    onPressed: () {},
+                    icon: Image.asset(AppImages.Google, height: 30, width: 30),
+                    splashRadius: 24,
+                  ),
                 ),
                 const SizedBox(width: 20),
-                IconButton(
-                  onPressed: () {},
-                  icon: Image.asset(AppImages.Facebook, height: 30, width: 30),
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black, width: 1),
+                    shape: BoxShape.circle,
+                  ),
+                  child: IconButton(
+                    onPressed: () {},
+                    icon: Image.asset(
+                      AppImages.Facebook,
+                      height: 30,
+                      width: 30,
+                    ),
+                    splashRadius: 24,
+                  ),
                 ),
               ],
             ),

@@ -70,49 +70,79 @@ class _SignupScreenState extends State<SignupScreen> {
 
             const SizedBox(height: 30),
             Center(
-              child: ElevatedButton(
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.brown,
-                  shape: const StadiumBorder(),
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 100,
-                    vertical: 16,
-                  ),
-                ),
-                onPressed: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => const LoginScreen(),
+              child: SizedBox(
+                width: 147,
+                height: 51,
+                child: Opacity(
+                  opacity: 1.0,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.brown,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(26.5),
+                      ),
                     ),
-                  );
-                },
-                child: const Text(
-                  "SIGN UP",
-                  style: TextStyle(color: Colors.white),
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LoginScreen(),
+                        ),
+                      );
+                    },
+                    child: const Text(
+                      "SIGN UP",
+                      style: TextStyle(color: Colors.white, fontSize: 17),
+                    ),
+                  ),
                 ),
               ),
             ),
 
             const SizedBox(height: 20),
             const Center(child: Text("or sign up with")),
-            const SizedBox(height: 70),
+            const SizedBox(height: 30),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                IconButton(
-                  onPressed: () {},
-                  icon: Image.asset(AppImages.Apple, height: 30, width: 30),
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black, width: 1),
+                    shape: BoxShape.circle,
+                  ),
+                  child: IconButton(
+                    onPressed: () {},
+                    icon: Image.asset(AppImages.Apple, height: 30, width: 30),
+                    splashRadius: 24,
+                  ),
                 ),
                 const SizedBox(width: 20),
-                IconButton(
-                  onPressed: () {},
-                  icon: Image.asset(AppImages.Google, height: 30, width: 30),
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black, width: 1),
+                    shape: BoxShape.circle,
+                  ),
+                  child: IconButton(
+                    onPressed: () {},
+                    icon: Image.asset(AppImages.Google, height: 30, width: 30),
+                    splashRadius: 24,
+                  ),
                 ),
                 const SizedBox(width: 20),
-                IconButton(
-                  onPressed: () {},
-                  icon: Image.asset(AppImages.Facebook, height: 30, width: 30),
+                Container(
+                  decoration: BoxDecoration(
+                    border: Border.all(color: Colors.black, width: 1),
+                    shape: BoxShape.circle,
+                  ),
+                  child: IconButton(
+                    onPressed: () {},
+                    icon: Image.asset(
+                      AppImages.Facebook,
+                      height: 30,
+                      width: 30,
+                    ),
+                    splashRadius: 24,
+                  ),
                 ),
               ],
             ),

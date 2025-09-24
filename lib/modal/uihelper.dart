@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class uihelper {
   static CustomButtom({
@@ -57,7 +58,7 @@ class uihelper {
   }) {
     return Text(
       text,
-      style: TextStyle(
+      style: GoogleFonts.ptSans(
         fontSize: height,
         color: color ?? Colors.black,
         fontWeight: fontweight,

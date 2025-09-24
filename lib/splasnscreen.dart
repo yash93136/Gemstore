@@ -1,7 +1,12 @@
+import 'dart:ui';
+
 import 'package:flutter/material.dart';
 import 'package:gemstore/intro.dart';
 import 'package:gemstore/modal/imagemodal.dart';
 import 'package:gemstore/modal/uihelper.dart' show uihelper;
+import 'package:gemstore/screen/home/homescreen.dart';
+import 'package:gemstore/screen/sing_up.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class Splasnscreen extends StatefulWidget {
   const Splasnscreen({super.key});
@@ -33,30 +38,71 @@ class _SplasnscreenState extends State<Splasnscreen> {
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  SizedBox(height: 350),
+                  SizedBox(height: 440),
                   uihelper.CustomText(
                     text: "Welcome to GemStore! ",
                     color: Colors.white,
                     fontweight: FontWeight.bold,
                     height: 30,
                   ),
+                  SizedBox(height: 10),
                   uihelper.CustomText(
                     text: " The home for a fashionista",
                     color: Colors.white,
                     fontweight: FontWeight.bold,
-                    height: 20,
+                    height: 17,
                   ),
-                  SizedBox(height: 100),
-                  uihelper.Custombutton(
-                    callback: () {
+                  SizedBox(height: 60),
+                  GestureDetector(
+                    onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                          builder: (context) => OnboardingScreen(),
-                        ),
+                        MaterialPageRoute(builder: (context) => SignupScreen()),
                       );
                     },
-                    buttonName: "Get Started",
+                    child: ClipRRect(
+                      borderRadius: BorderRadius.circular(
+                        29.5,
+                      ), // border-radius: 29.5px
+                      child: BackdropFilter(
+                        filter: ImageFilter.blur(
+                          sigmaX: 10,
+                          sigmaY: 10,
+                        ), // blur(10px)
+                        child: Container(
+                          width: 193,
+                          height: 53,
+                          padding: const EdgeInsets.symmetric(
+                            vertical: 15,
+                            horizontal: 53,
+                          ),
+                          decoration: BoxDecoration(
+                            color: Colors.white.withOpacity(
+                              0.25,
+                            ), // rgba(255,255,255,0.25)
+                            border: Border.all(
+                              color: Colors.white,
+                              width: 1.18, // 1.18px border
+                            ),
+                            borderRadius: BorderRadius.circular(29.5),
+                          ),
+                          alignment: Alignment.center,
+                          child: Text(
+                            'Get Sterted',
+                            textAlign: TextAlign.center,
+                            style: GoogleFonts.ptSans(
+                              textStyle: const TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 16,
+                                height: 1.41,
+                                letterSpacing: 0,
+                                color: Colors.white,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
                   ),
                 ],
               ),
