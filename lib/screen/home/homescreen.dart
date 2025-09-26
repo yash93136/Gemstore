@@ -1,20 +1,20 @@
 import 'dart:async';
-import 'package:curved_navigation_bar/curved_navigation_bar.dart';
 import 'package:flutter/material.dart';
+import 'package:gemstore/modal/drawer.dart';
 import 'package:gemstore/modal/imagemodal.dart';
 import 'package:gemstore/modal/uihelper.dart';
 import 'package:gemstore/newfile.dart';
 
-class HomePage extends StatefulWidget {
-  const HomePage({super.key});
+class HomeScreen extends StatefulWidget {
+  const HomeScreen({super.key});
 
   @override
-  State<HomePage> createState() => _HomePageState();
+  State<HomeScreen> createState() => _HomeScreenState();
 }
 
-class _HomePageState extends State<HomePage> {
-  int _currentIndex = 0;
+class _HomeScreenState extends State<HomeScreen> {
   double get screenWidth => MediaQuery.of(context).size.width;
+  double get screenHeight => MediaQuery.of(context).size.height;
   final PageController _pageController = PageController();
   int _page = 0;
   Timer? _timer;
@@ -79,22 +79,13 @@ class _HomePageState extends State<HomePage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.blueGrey.shade500,
-      drawer: Drawer(
-        child: ListView(
-          children: const [
-            DrawerHeader(child: Text("Menu")),
-            ListTile(title: Text("Home")),
-            ListTile(title: Text("Profile")),
-          ],
-        ),
-      ),
       appBar: AppBar(
         title: const Text("Gemstore", style: TextStyle(color: Colors.black)),
         centerTitle: true,
         backgroundColor: Colors.white54,
         elevation: 0,
         iconTheme: const IconThemeData(color: Colors.black),
+
         actions: [
           IconButton(
             onPressed: () {},
@@ -102,11 +93,11 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
+      drawer: CustomDrawer(),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            // category buttons
             Padding(
               padding: const EdgeInsets.symmetric(vertical: 10),
               child: Row(
@@ -128,7 +119,7 @@ class _HomePageState extends State<HomePage> {
 
             // auto scroll PageView
             SizedBox(
-              height: 180,
+              height: 240,
               child: PageView.builder(
                 controller: _pageController,
                 itemCount: sliderImages.length,
@@ -144,13 +135,12 @@ class _HomePageState extends State<HomePage> {
                         ),
                       ),
                       Positioned(
-                        right: 20,
-                        bottom: 30,
-                        top: 30,
+                        right: 10,
+                        top: 10,
                         child: Text(
-                          "Autumn \nCollection\n ${2022 + index}",
+                          "Autumn \nCollection\n${2022 + index}",
                           style: const TextStyle(
-                            fontSize: 20,
+                            fontSize: 42,
                             color: Colors.white,
                             fontWeight: FontWeight.bold,
                           ),
@@ -172,7 +162,7 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   const Text(
                     "Feature Products",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                   ),
                   InkWell(
                     onTap: () {
@@ -182,7 +172,7 @@ class _HomePageState extends State<HomePage> {
                     },
                     child: const Text(
                       "Show all",
-                      style: TextStyle(color: Colors.grey),
+                      style: TextStyle(color: Colors.grey, fontSize: 18),
                     ),
                   ),
                 ],
@@ -192,7 +182,7 @@ class _HomePageState extends State<HomePage> {
             const SizedBox(height: 10),
 
             SizedBox(
-              height: 220,
+              height: 250,
               child: ListView.builder(
                 shrinkWrap: true,
                 physics: const BouncingScrollPhysics(),
@@ -225,7 +215,7 @@ class _HomePageState extends State<HomePage> {
                             },
                             child: Image.asset(
                               product["image"],
-                              height: 160,
+                              height: 200,
                               width: 140,
                               fit: BoxFit.cover,
                             ),
@@ -255,7 +245,7 @@ class _HomePageState extends State<HomePage> {
               title: "NEW COLLECTION",
               subtitle: "HANG OUT \n& PARTY",
               image: AppImages.collection,
-              color: Colors.grey.shade400,
+              color: Colors.grey.shade200,
               hight: 200,
             ),
             const SizedBox(height: 20),
@@ -268,7 +258,7 @@ class _HomePageState extends State<HomePage> {
                 children: [
                   const Text(
                     "Recommended",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                   ),
                   InkWell(
                     onTap: () {
@@ -278,7 +268,7 @@ class _HomePageState extends State<HomePage> {
                     },
                     child: const Text(
                       "Show all",
-                      style: TextStyle(color: Colors.grey),
+                      style: TextStyle(color: Colors.grey, fontSize: 18),
                     ),
                   ),
                 ],
@@ -354,8 +344,8 @@ class _HomePageState extends State<HomePage> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Text(
-                    "Recommended",
-                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                    "Top Collection",
+                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
                   ),
                   InkWell(
                     onTap: () {
@@ -365,7 +355,7 @@ class _HomePageState extends State<HomePage> {
                     },
                     child: const Text(
                       "Show all",
-                      style: TextStyle(color: Colors.grey),
+                      style: TextStyle(color: Colors.grey, fontSize: 18),
                     ),
                   ),
                 ],
@@ -375,14 +365,14 @@ class _HomePageState extends State<HomePage> {
               title: "Sale up to 40%",
               subtitle: "FOR SLIM \n& BEAUTY",
               image: AppImages.forslim,
-              color: Colors.grey.shade400,
+              color: Colors.grey.shade200,
               hight: 200,
             ),
             UiHelper.customBanner(
               title: "Summer Collection 2021",
               subtitle: "Most sexy\n& fabulous \ndesign ",
               image: AppImages.mostsexy,
-              color: Colors.grey.shade400,
+              color: Colors.grey.shade200,
               hight: 300,
             ),
             Row(
@@ -396,7 +386,7 @@ class _HomePageState extends State<HomePage> {
                     width: screenWidth * 0.45, // responsive width
                     height: 220,
                     decoration: BoxDecoration(
-                      color: Colors.grey.shade400,
+                      color: Colors.grey.shade200,
                       borderRadius: BorderRadius.circular(20),
                       boxShadow: const [
                         BoxShadow(
@@ -410,41 +400,33 @@ class _HomePageState extends State<HomePage> {
                       children: [
                         ClipRRect(
                           borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(16),
+                            topLeft: Radius.circular(12),
                             bottomLeft: Radius.circular(20),
                           ),
                           child: Image.asset(
                             AppImages.theshirts,
-                            height: double.infinity,
-                            width: screenWidth * 0.18, // responsive image
-                            fit: BoxFit.cover,
+                            width: screenWidth * 0.28, // responsive image
+                            fit: BoxFit.fill,
                           ),
                         ),
-                        const SizedBox(width: 12),
                         Expanded(
-                          child: Padding(
-                            padding: const EdgeInsets.symmetric(vertical: 12),
-                            child: Column(
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: const [
-                                Text(
-                                  "T-Shirts",
-                                  style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 18,
-                                  ),
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            mainAxisAlignment: MainAxisAlignment.center,
+                            children: const [
+                              Text(
+                                "T-Shirts",
+                                style: TextStyle(
+                                  color: Colors.grey,
+                                  fontSize: 20,
                                 ),
-                                SizedBox(height: 6),
-                                Text(
-                                  "The \nOffice \nLife",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
-                                ),
-                              ],
-                            ),
+                              ),
+                              SizedBox(height: 6),
+                              Text(
+                                "The \nOffice \nLife",
+                                style: TextStyle(fontSize: 22),
+                              ),
+                            ],
                           ),
                         ),
                       ],
@@ -461,7 +443,7 @@ class _HomePageState extends State<HomePage> {
                         0.45, // responsive width
                     height: 220,
                     decoration: BoxDecoration(
-                      color: Colors.grey.shade400,
+                      color: Colors.grey.shade200,
                       borderRadius: BorderRadius.circular(20),
                       boxShadow: const [
                         BoxShadow(
@@ -487,28 +469,25 @@ class _HomePageState extends State<HomePage> {
                                 Text(
                                   "Dresses",
                                   style: TextStyle(
-                                    color: Colors.black,
-                                    fontSize: 18,
+                                    color: Colors.grey,
+                                    fontSize: 20,
                                   ),
                                 ),
                                 SizedBox(height: 6),
                                 Text(
                                   "Elegant \nDesign ",
-                                  style: TextStyle(
-                                    fontSize: 16,
-                                    fontWeight: FontWeight.bold,
-                                  ),
+                                  style: TextStyle(fontSize: 22),
                                 ),
                               ],
                             ),
                           ),
                         ),
-                        const SizedBox(width: 30),
+
                         Expanded(
                           child: Image.asset(
                             AppImages.Eleggant,
-                            height: double.infinity,
-                            width: MediaQuery.of(context).size.width * 0.18,
+                            height: screenHeight * 0.25,
+                            width: screenWidth * 0.12,
                             fit: BoxFit.cover,
                           ),
                         ),
@@ -520,25 +499,6 @@ class _HomePageState extends State<HomePage> {
             ),
           ],
         ),
-      ),
-
-      // bottom navigation bar
-      bottomNavigationBar: CurvedNavigationBar(
-        backgroundColor: Colors.blueGrey,
-        color: Colors.blueGrey.shade300,
-        animationDuration: Duration(milliseconds: 300),
-        items: <Widget>[
-          Icon(Icons.home, size: 30),
-          Icon(Icons.search, size: 30),
-          Icon(Icons.shopping_bag, size: 30),
-          Icon(Icons.person_outline, size: 30),
-        ],
-
-        onTap: (index) {
-          setState(() {
-            _currentIndex = index;
-          });
-        },
       ),
     );
   }

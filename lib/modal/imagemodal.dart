@@ -7,12 +7,20 @@ class AppImages {
   static const String Facebook = "assets/images/facebook.png";
   static const String Apple = "assets/images/Apple.png";
   static String MaskGroup = "assets/images/Mask Group.png";
-  static String Products1 = "assets/products/products1.jpg";
-  static String Products2 = "assets/Products/products2.jpg";
+  static String Products1 = "assets/products/products1.png";
+  static String Products2 = "assets/Products/products2.png";
   static String Products3 = "assets/Products/products3.jpg";
   static const String collection = "assets/images/collection.png";
   static const String forslim = "assets/collection/FOR SLIM.png";
   static const String mostsexy = "assets/collection/Most sexy.png";
-  static const String theshirts = "assets/collection/The shirts.png";
-  static const String Eleggant = "assets/collection/Eleggant Desing.png";
+  static const String theshirts = "assets/collection/theshirts.png";
+  static const String Eleggant = "assets/collection/Eleggant.png";
+  static const String discover1 = "assets/discover/discover1.png";
+  static const String discover2 = "assets/discover/discover2.png";
+  static const String discover3 = "assets/discover/discover3.png";
+  static const String discover4 = "assets/discover/discover4.png";
+  static const String discovercolor1 = "assets/discover/discovercolor1.png";
+  static const String discovercolor2 = "assets/discover/discovercolor2.png";
+  static const String discovercolor3 = "assets/discover/discovercolor3.png";
+  static const String discovercolor4 = "assets/discover/discovercolor4.png";
 }

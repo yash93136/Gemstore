@@ -1,18 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:gemstore/modal/imagemodal.dart';
-import 'package:gemstore/screen/home/homescreen.dart';
-import 'package:gemstore/screen/sing_up.dart';
+import 'package:gemstore/login_singin/login.dart';
 
-class LoginScreen extends StatefulWidget {
-  const LoginScreen({super.key});
+class SignupScreen extends StatefulWidget {
+  const SignupScreen({super.key});
 
   @override
-  State<LoginScreen> createState() => _LoginScreenState();
+  State<SignupScreen> createState() => _SignupScreenState();
 }
 
-class _LoginScreenState extends State<LoginScreen> {
+class _SignupScreenState extends State<SignupScreen> {
+  final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  final TextEditingController confirmPasswordController =
+      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -23,7 +25,7 @@ class _LoginScreenState extends State<LoginScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              "Log into",
+              "Create",
               style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
             ),
             const Text(
@@ -32,6 +34,14 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
 
             const SizedBox(height: 40),
+            TextField(
+              controller: nameController,
+              decoration: const InputDecoration(
+                labelText: "Enter your name",
+                border: UnderlineInputBorder(),
+              ),
+            ),
+            const SizedBox(height: 20),
             TextField(
               controller: emailController,
               decoration: const InputDecoration(
@@ -48,16 +58,13 @@ class _LoginScreenState extends State<LoginScreen> {
                 border: UnderlineInputBorder(),
               ),
             ),
-
-            const SizedBox(height: 10),
-            Align(
-              alignment: Alignment.centerRight,
-              child: TextButton(
-                onPressed: () {},
-                child: const Text(
-                  "Forgot Password?",
-                  style: TextStyle(color: Colors.grey),
-                ),
+            const SizedBox(height: 20),
+            TextField(
+              controller: confirmPasswordController,
+              obscureText: true,
+              decoration: const InputDecoration(
+                labelText: "Confirm password",
+                border: UnderlineInputBorder(),
               ),
             ),
 
@@ -66,27 +73,26 @@ class _LoginScreenState extends State<LoginScreen> {
               child: SizedBox(
                 width: 147,
                 height: 51,
-                child: ElevatedButton(
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.brown,
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(26.5),
+                child: Opacity(
+                  opacity: 1.0,
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor: Colors.brown,
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(26.5),
+                      ),
                     ),
-                    elevation: 3, // Optional: adds slight shadow for depth
-                  ),
-                  onPressed: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => const HomePage()),
-                    );
-                  },
-                  child: const Text(
-                    "LOG IN",
-                    style: TextStyle(
-                      color: Colors.white,
-                      fontSize: 17,
-                      fontWeight: FontWeight.bold, // Added for better emphasis
-                      letterSpacing: 1.0, // Optional: slight spacing
+                    onPressed: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const LoginScreen(),
+                        ),
+                      );
+                    },
+                    child: const Text(
+                      "SIGN UP",
+                      style: TextStyle(color: Colors.white, fontSize: 17),
                     ),
                   ),
                 ),
@@ -94,8 +100,8 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
 
             const SizedBox(height: 20),
-            const Center(child: Text("or log in with")),
-            const SizedBox(height: 50),
+            const Center(child: Text("or sign up with")),
+            const SizedBox(height: 30),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -145,18 +151,18 @@ class _LoginScreenState extends State<LoginScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text("Don’t have an account? "),
+                const Text("Already have account? "),
                 GestureDetector(
                   onTap: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const SignupScreen(),
+                        builder: (context) => const LoginScreen(),
                       ),
                     );
                   },
                   child: const Text(
-                    "Sign Up",
+                    "Log In",
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),

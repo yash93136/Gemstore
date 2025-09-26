@@ -1,20 +1,18 @@
 import 'package:flutter/material.dart';
 import 'package:gemstore/modal/imagemodal.dart';
-import 'package:gemstore/screen/login.dart';
+import 'package:gemstore/screen/home/homepage.dart';
+import 'package:gemstore/login_singin/sing_up.dart';
 
-class SignupScreen extends StatefulWidget {
-  const SignupScreen({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
   @override
-  State<SignupScreen> createState() => _SignupScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _SignupScreenState extends State<SignupScreen> {
-  final TextEditingController nameController = TextEditingController();
+class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController =
-      TextEditingController();
 
   @override
   Widget build(BuildContext context) {
@@ -25,7 +23,7 @@ class _SignupScreenState extends State<SignupScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             const Text(
-              "Create",
+              "Log into",
               style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
             ),
             const Text(
@@ -34,14 +32,6 @@ class _SignupScreenState extends State<SignupScreen> {
             ),
 
             const SizedBox(height: 40),
-            TextField(
-              controller: nameController,
-              decoration: const InputDecoration(
-                labelText: "Enter your name",
-                border: UnderlineInputBorder(),
-              ),
-            ),
-            const SizedBox(height: 20),
             TextField(
               controller: emailController,
               decoration: const InputDecoration(
@@ -58,13 +48,16 @@ class _SignupScreenState extends State<SignupScreen> {
                 border: UnderlineInputBorder(),
               ),
             ),
-            const SizedBox(height: 20),
-            TextField(
-              controller: confirmPasswordController,
-              obscureText: true,
-              decoration: const InputDecoration(
-                labelText: "Confirm password",
-                border: UnderlineInputBorder(),
+
+            const SizedBox(height: 10),
+            Align(
+              alignment: Alignment.centerRight,
+              child: TextButton(
+                onPressed: () {},
+                child: const Text(
+                  "Forgot Password?",
+                  style: TextStyle(color: Colors.grey),
+                ),
               ),
             ),
 
@@ -73,26 +66,27 @@ class _SignupScreenState extends State<SignupScreen> {
               child: SizedBox(
                 width: 147,
                 height: 51,
-                child: Opacity(
-                  opacity: 1.0,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.brown,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(26.5),
-                      ),
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.brown,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(26.5),
                     ),
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const LoginScreen(),
-                        ),
-                      );
-                    },
-                    child: const Text(
-                      "SIGN UP",
-                      style: TextStyle(color: Colors.white, fontSize: 17),
+                    elevation: 3, // Optional: adds slight shadow for depth
+                  ),
+                  onPressed: () {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(builder: (context) => const HomePage()),
+                    );
+                  },
+                  child: const Text(
+                    "LOG IN",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontSize: 17,
+                      fontWeight: FontWeight.bold, // Added for better emphasis
+                      letterSpacing: 1.0, // Optional: slight spacing
                     ),
                   ),
                 ),
@@ -100,8 +94,8 @@ class _SignupScreenState extends State<SignupScreen> {
             ),
 
             const SizedBox(height: 20),
-            const Center(child: Text("or sign up with")),
-            const SizedBox(height: 30),
+            const Center(child: Text("or log in with")),
+            const SizedBox(height: 50),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -151,18 +145,18 @@ class _SignupScreenState extends State<SignupScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                const Text("Already have account? "),
+                const Text("Don’t have an account? "),
                 GestureDetector(
                   onTap: () {
                     Navigator.push(
                       context,
                       MaterialPageRoute(
-                        builder: (context) => const LoginScreen(),
+                        builder: (context) => const SignupScreen(),
                       ),
                     );
                   },
                   child: const Text(
-                    "Log In",
+                    "Sign Up",
                     style: TextStyle(fontWeight: FontWeight.bold),
                   ),
                 ),

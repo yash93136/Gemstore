@@ -1,11 +1,8 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
-import 'package:gemstore/intro.dart';
 import 'package:gemstore/modal/imagemodal.dart';
 import 'package:gemstore/modal/uihelper.dart' show uihelper;
-import 'package:gemstore/screen/home/homescreen.dart';
-import 'package:gemstore/screen/sing_up.dart';
+import 'package:gemstore/login_singin/sing_up.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Splasnscreen extends StatefulWidget {

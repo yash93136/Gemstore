@@ -121,8 +121,8 @@ class UiHelper {
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                UiHelper.customText(text: title, size: 14, color: Colors.grey),
-                const SizedBox(height: 8),
+                UiHelper.customText(text: title, size: 16, color: Colors.grey),
+                const SizedBox(height: 25),
                 UiHelper.customText(
                   text: subtitle,
                   size: 24,
