@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:gemstore/modal/drawer.dart';
 import 'package:gemstore/modal/imagemodal.dart';
-import 'package:gemstore/temparrari.dart';
+import 'package:gemstore/screen/search/searchpage.dart';
+import 'package:gemstore/utils/kyes.dart';
 
 class Discover extends StatefulWidget {
   @override
@@ -35,8 +36,6 @@ class _DiscoverState extends State<Discover> with TickerProviderStateMixin {
     _fadeAnimation = Tween<double>(begin: 0.0, end: 1.0).animate(
       CurvedAnimation(parent: _headerAnimationController, curve: Curves.easeIn),
     );
-
-    // Auto start header animation
     _headerAnimationController.forward();
   }
 
@@ -46,34 +45,6 @@ class _DiscoverState extends State<Discover> with TickerProviderStateMixin {
     _animationController.dispose();
     _headerAnimationController.dispose();
     super.dispose();
-  }
-
-  void _performSearch() {
-    String query = _searchController.text.trim();
-    if (query.isNotEmpty) {
-      print("Searching for: $query");
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text("Searching for: $query"),
-          backgroundColor: Colors.black87,
-          behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-        ),
-      );
-    } else {
-      ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(
-          content: Text("Please enter something to search"),
-          backgroundColor: Colors.orange,
-          behavior: SnackBarBehavior.floating,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(10),
-          ),
-        ),
-      );
-    }
   }
 
   void _toggleAccessories() {
@@ -103,6 +74,7 @@ class _DiscoverState extends State<Discover> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: Keys.endDrawreKey,
       appBar: AppBar(
         title: const Text(
           "Discover",
@@ -148,38 +120,28 @@ class _DiscoverState extends State<Discover> with TickerProviderStateMixin {
         ],
       ),
       drawer: CustomDrawer(),
+      endDrawer: Drawer2(),
       backgroundColor: Colors.grey.shade50,
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              // Enhanced Search Bar
               Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Row(
                   children: [
-                    // Tappable Search Bar
                     Expanded(
                       child: GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(
-                              builder: (context) => SearchPage(),
-                            ),
-                          );
-                        },
                         child: Row(
                           children: [
-                            // Tappable Search Bar
                             Expanded(
                               child: GestureDetector(
                                 onTap: () {
                                   Navigator.push(
                                     context,
                                     MaterialPageRoute(
-                                      builder: (_) => SearchPage(),
+                                      builder: (context) => SearchPage(),
                                     ),
                                   );
                                 },
@@ -215,8 +177,6 @@ class _DiscoverState extends State<Discover> with TickerProviderStateMixin {
                             ),
 
                             SizedBox(width: 10),
-
-                            // Filter icon (optional)
                           ],
                         ),
                       ),
@@ -237,7 +197,9 @@ class _DiscoverState extends State<Discover> with TickerProviderStateMixin {
                       ),
                       child: IconButton(
                         icon: Icon(Icons.tune, color: Colors.grey.shade700),
-                        onPressed: () {},
+                        onPressed: () {
+                          Keys.endDrawreKey.currentState?.openEndDrawer();
+                        },
                       ),
                     ),
 

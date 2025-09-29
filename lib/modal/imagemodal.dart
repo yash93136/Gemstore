@@ -23,4 +23,7 @@ class AppImages {
   static const String discovercolor2 = "assets/discover/discovercolor2.png";
   static const String discovercolor3 = "assets/discover/discovercolor3.png";
   static const String discovercolor4 = "assets/discover/discovercolor4.png";
+  static const String popular1 = "assets/Popular/popular1.png";
+  static const String popular2 = "assets/Popular/popular2.png";
+  static const String popular3 = "assets/Popular/popular3.png";
 }
