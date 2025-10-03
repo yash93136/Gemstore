@@ -26,4 +26,16 @@ class AppImages {
   static const String popular1 = "assets/Popular/popular1.png";
   static const String popular2 = "assets/Popular/popular2.png";
   static const String popular3 = "assets/Popular/popular3.png";
+  static const String croptops = "assets/icon/icon-CropTops.png";
+  static const String jackets= "assets/icon/icon-Jackets.png";
+  static const String jeans = "assets/icon/icon-Jeans.png";
+  static const String tshirt = "assets/icon/icon-tshirt.png";
+  static const String filtedWaistDress = "assets/products/filtedWaistDress.png";
+  static const String frontTieMiniDress = "assets/products/frontTieMiniDress.png";
+  static const String leavesGreenDress = "assets/products/leavesGreenDress.png";
+  static const String linenDress = "assets/products/linenDress.png";
+  static const String maxiDress = "assets/products/maxiDress.png";
+  static const String offShoulderDress = "assets/products/offShoulderDress.png";
+  static const String oharaDress = "assets/products/oharaDress.png";
+  static const String tieBackMiniDress = "assets/products/tieBackMiniDress.png";
 }
