@@ -17,17 +17,17 @@ class _OnboardingScreenState extends State<OnboardingScreen> {
     {
       "title": "Discover something new",
       "subtitle": "Special new arrivals just for you",
-      "image": AppImages.Intro1,
+      "image": AppImages.intro1,
     },
     {
       "title": "Update trendy outfit",
       "subtitle": "Favorite brands and hottest trends",
-      "image": AppImages.Intro2,
+      "image": AppImages.intro2,
     },
     {
       "title": "Explore your true style",
       "subtitle": "Relax and let us bring the style to you",
-      "image": AppImages.Intro3,
+      "image": AppImages.intro3,
     },
   ];
 

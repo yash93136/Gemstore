@@ -4,6 +4,7 @@ import 'package:gemstore/modal/drawer.dart';
 import 'package:gemstore/modal/imagemodal.dart';
 import 'package:gemstore/modal/uihelper.dart';
 import 'package:gemstore/newfile.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -20,10 +21,11 @@ class _HomeScreenState extends State<HomeScreen> {
   Timer? _timer;
 
   final List<String> sliderImages = [
-    AppImages.MaskGroup,
-    AppImages.MaskGroup,
-    AppImages.MaskGroup,
+    AppImages.maskGroup,
+    AppImages.maskGroup,
+    AppImages.maskGroup,
   ];
+   int selectedCategoryIndex = -1;
 
   final List<Map<String, dynamic>> categories = [
     {"icon": Icons.female, "title": "Women"},
@@ -33,20 +35,20 @@ class _HomeScreenState extends State<HomeScreen> {
   ];
 
   final List<Map<String, dynamic>> products = [
-    {"image": AppImages.Products1, "title": "Long Sleeve Dress", "price": 45.0},
-    {"image": AppImages.Products2, "title": "Sportwear Set", "price": 80.0},
-    {"image": AppImages.Products3, "title": "White Sweater", "price": 35.0},
-    {"image": AppImages.Products1, "title": "Denim Jacket", "price": 60.0},
-    {"image": AppImages.Products2, "title": "Black Shoes", "price": 55.0},
-    {"image": AppImages.Products3, "title": "Summer Top", "price": 25.0},
+    {"image": AppImages.products1, "title": "Long Sleeve Dress", "price": 45.0},
+    {"image": AppImages.products2, "title": "Sportwear Set", "price": 80.0},
+    {"image": AppImages.products3, "title": "White Sweater", "price": 35.0},
+    {"image": AppImages.products1, "title": "Denim Jacket", "price": 60.0},
+    {"image": AppImages.products2, "title": "Black Shoes", "price": 55.0},
+    {"image": AppImages.products3, "title": "Summer Top", "price": 25.0},
   ];
-  final List<Map<String, dynamic>> Recommended = [
-    {"image": AppImages.Products1, "title": "Long Sleeve Dress", "price": 45.0},
-    {"image": AppImages.Products2, "title": "Sportwear Set", "price": 80.0},
-    {"image": AppImages.Products3, "title": "White Sweater", "price": 35.0},
-    {"image": AppImages.Products1, "title": "Denim Jacket", "price": 60.0},
-    {"image": AppImages.Products2, "title": "Black Shoes", "price": 55.0},
-    {"image": AppImages.Products3, "title": "Summer Top", "price": 25.0},
+  final List<Map<String, dynamic>> recommended = [
+    {"image": AppImages.popular1, "title": "Long Sleeve Dress", "price": 45.0},
+    {"image": AppImages.popular2, "title": "Sportwear Set", "price": 80.0},
+    {"image": AppImages.products3, "title": "White Sweater", "price": 35.0},
+    {"image": AppImages.products1, "title": "Denim Jacket", "price": 60.0},
+    {"image": AppImages.products2, "title": "Black Shoes", "price": 55.0},
+    {"image": AppImages.products3, "title": "Summer Top", "price": 25.0},
   ];
 
   @override
@@ -99,60 +101,100 @@ class _HomeScreenState extends State<HomeScreen> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Padding(
-              padding: const EdgeInsets.symmetric(vertical: 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceAround,
-                children: categories.map((cat) {
-                  return Column(
-                    children: [
-                      CircleAvatar(
-                        backgroundColor: Colors.grey.shade200,
-                        child: Icon(cat["icon"], color: Colors.black),
-                      ),
-                      const SizedBox(height: 5),
-                      Text(cat["title"]),
-                    ],
-                  );
-                }).toList(),
-              ),
+      padding: const EdgeInsets.symmetric(vertical: 10),
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceAround,
+        children: categories.asMap().entries.map((entry) {
+          int index = entry.key;
+          var cat = entry.value;
+          bool isSelected = selectedCategoryIndex == index;
+
+          return GestureDetector(
+            onTap: () {
+              setState(() {
+                selectedCategoryIndex = index;
+              });
+            },
+            child: Column(
+  children: [
+    GestureDetector(
+      onTap: () {
+        setState(() {
+          selectedCategoryIndex = index; // Update selected index
+        });
+      },
+      child: Container(
+        padding: isSelected ? const EdgeInsets.all(3) : EdgeInsets.zero,
+        decoration: isSelected
+            ? BoxDecoration(
+                shape: BoxShape.circle,
+                border: Border.all(
+                  color: Colors.black,
+                  width: 2,
+                ),
+              )
+            : null,
+        child: Container(
+          padding: const EdgeInsets.all(9),
+          decoration: BoxDecoration(
+            shape: BoxShape.circle,
+            color: isSelected ? Colors.black : Colors.grey.shade200,
+          ),
+          child: Icon(
+            cat["icon"],
+            color: isSelected ? Colors.white : Colors.black,
+            size: 30,
+          ),
+        ),
+      ),
+    ),
+    const SizedBox(height: 5),
+    Text(cat["title"]),
+  ],
+),
+
+          );
+        }).toList(),
+      ),
             ),
 
             // auto scroll PageView
-            SizedBox(
-              height: 240,
-              child: PageView.builder(
-                controller: _pageController,
-                itemCount: sliderImages.length,
-                itemBuilder: (context, index) {
-                  return Stack(
-                    fit: StackFit.expand,
-                    children: [
-                      ClipRRect(
-                        borderRadius: BorderRadius.circular(15),
-                        child: Image.asset(
-                          sliderImages[index],
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      Positioned(
-                        right: 10,
-                        top: 10,
-                        child: Text(
-                          "Autumn \nCollection\n${2022 + index}",
-                          style: const TextStyle(
-                            fontSize: 42,
-                            color: Colors.white,
-                            fontWeight: FontWeight.bold,
+            Padding(
+              padding: const EdgeInsets.all(10.0),
+              child: SizedBox(
+                height: 240,
+                child: PageView.builder(
+                  controller: _pageController,
+                  itemCount: sliderImages.length,
+                  itemBuilder: (context, index) {
+                    return Stack(
+                      fit: StackFit.loose,
+                      children: [
+                        ClipRRect(
+                          borderRadius: BorderRadius.circular(15),
+                          child: Image.asset(
+                            sliderImages[index],
+                            fit: BoxFit.cover,
                           ),
                         ),
-                      ),
-                    ],
-                  );
-                },
+                        Positioned(
+                          right: 8,
+                          top: 10,
+                          child: Text(
+                            "Autumn \nCollection\n${2022 + index}",
+                            style: const TextStyle(
+                              fontSize: 35,
+                              color: Colors.white,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                        ),
+                      ],
+                    );
+                  },
+                ),
               ),
             ),
-
-            const SizedBox(height: 20),
 
             // Feature Products Row
             Padding(
@@ -160,11 +202,16 @@ class _HomeScreenState extends State<HomeScreen> {
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  const Text(
+                  Text(
                     "Feature Products",
-                    style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
+                    style: GoogleFonts.ptSans(
+                              textStyle:  const TextStyle(
+                                fontWeight: FontWeight.w700,
+                                fontSize: 24,
+                              ),
                   ),
-                  InkWell(
+                  ),
+                   InkWell(
                     onTap: () {
                       ScaffoldMessenger.of(context).showSnackBar(
                         const SnackBar(content: Text("Show all clicked!")),
@@ -281,9 +328,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 shrinkWrap: true,
                 physics: const BouncingScrollPhysics(),
                 scrollDirection: Axis.horizontal,
-                itemCount: Recommended.length,
+                itemCount: recommended.length,
                 itemBuilder: (context, index) {
-                  final product = Recommended[index];
+                  final product = recommended[index];
                   return Container(
                     decoration: BoxDecoration(
                       color: Colors.white54,
@@ -368,6 +415,7 @@ class _HomeScreenState extends State<HomeScreen> {
               color: Colors.grey.shade200,
               hight: 200,
             ),
+            SizedBox(height: 10,),
             UiHelper.customBanner(
               title: "Summer Collection 2021",
               subtitle: "Most sexy\n& fabulous \ndesign ",
@@ -375,6 +423,7 @@ class _HomeScreenState extends State<HomeScreen> {
               color: Colors.grey.shade200,
               hight: 300,
             ),
+            SizedBox(height: 10,),
             Row(
               crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
@@ -384,7 +433,7 @@ class _HomeScreenState extends State<HomeScreen> {
                   padding: const EdgeInsets.all(10.0),
                   child: Container(
                     width: screenWidth * 0.45, // responsive width
-                    height: 220,
+                    height: screenHeight*0.22,
                     decoration: BoxDecoration(
                       color: Colors.grey.shade200,
                       borderRadius: BorderRadius.circular(20),
@@ -400,8 +449,8 @@ class _HomeScreenState extends State<HomeScreen> {
                       children: [
                         ClipRRect(
                           borderRadius: const BorderRadius.only(
-                            topLeft: Radius.circular(12),
-                            bottomLeft: Radius.circular(20),
+                            topLeft: Radius.circular(1),
+                            bottomLeft: Radius.circular(17),
                           ),
                           child: Image.asset(
                             AppImages.theshirts,
@@ -441,7 +490,7 @@ class _HomeScreenState extends State<HomeScreen> {
                     width:
                         MediaQuery.of(context).size.width *
                         0.45, // responsive width
-                    height: 220,
+                    height: screenHeight*0.22,
                     decoration: BoxDecoration(
                       color: Colors.grey.shade200,
                       borderRadius: BorderRadius.circular(20),
@@ -485,7 +534,7 @@ class _HomeScreenState extends State<HomeScreen> {
 
                         Expanded(
                           child: Image.asset(
-                            AppImages.Eleggant,
+                            AppImages.eleggant,
                             height: screenHeight * 0.25,
                             width: screenWidth * 0.12,
                             fit: BoxFit.cover,

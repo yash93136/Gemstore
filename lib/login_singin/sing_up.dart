@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gemstore/modal/imagemodal.dart';
 import 'package:gemstore/login_singin/login.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class SignupScreen extends StatefulWidget {
   const SignupScreen({super.key});
@@ -10,6 +11,8 @@ class SignupScreen extends StatefulWidget {
 }
 
 class _SignupScreenState extends State<SignupScreen> {
+   double get screenWidth => MediaQuery.of(context).size.width;
+  double get screenHeight => MediaQuery.of(context).size.height;
   final TextEditingController nameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
@@ -21,19 +24,35 @@ class _SignupScreenState extends State<SignupScreen> {
     return Scaffold(
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 50),
+        
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            SizedBox(height: screenHeight* 0.05),
+            Text(
               "Create",
-              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+              style: GoogleFonts.ptSans(
+                              textStyle: const TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 28,
+                              
+                                letterSpacing: 0,
+                                color: Colors.black,
+                              ),
+                            ),
             ),
-            const Text(
+            Text(
               "your account",
-              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
-            ),
-
-            const SizedBox(height: 40),
+              style: GoogleFonts.ptSans(
+                              textStyle: const TextStyle(
+                                fontWeight: FontWeight.w400,
+                                fontSize: 28,
+                                letterSpacing: 0,
+                                color: Colors.black,
+                              ),
+                            ),   
+                              ),
+             SizedBox(height: screenHeight*0.05,),
             TextField(
               controller: nameController,
               decoration: const InputDecoration(
@@ -41,7 +60,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 border: UnderlineInputBorder(),
               ),
             ),
-            const SizedBox(height: 20),
+             SizedBox(height: screenHeight*0.02,),
             TextField(
               controller: emailController,
               decoration: const InputDecoration(
@@ -49,7 +68,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 border: UnderlineInputBorder(),
               ),
             ),
-            const SizedBox(height: 20),
+             SizedBox(height: screenHeight*0.02,),
             TextField(
               controller: passwordController,
               obscureText: true,
@@ -58,7 +77,7 @@ class _SignupScreenState extends State<SignupScreen> {
                 border: UnderlineInputBorder(),
               ),
             ),
-            const SizedBox(height: 20),
+             SizedBox(height: screenHeight*0.02,),
             TextField(
               controller: confirmPasswordController,
               obscureText: true,
@@ -68,16 +87,16 @@ class _SignupScreenState extends State<SignupScreen> {
               ),
             ),
 
-            const SizedBox(height: 30),
+             SizedBox(height: screenHeight*0.05,),
             Center(
               child: SizedBox(
-                width: 147,
-                height: 51,
+                width: screenWidth*0.4
+,                height: screenHeight*0.06,
                 child: Opacity(
                   opacity: 1.0,
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      backgroundColor: Colors.brown,
+                      backgroundColor: const Color.fromARGB(255, 60, 44, 38),
                       shape: RoundedRectangleBorder(
                         borderRadius: BorderRadius.circular(26.5),
                       ),
@@ -99,9 +118,9 @@ class _SignupScreenState extends State<SignupScreen> {
               ),
             ),
 
-            const SizedBox(height: 20),
-            const Center(child: Text("or sign up with")),
-            const SizedBox(height: 30),
+             SizedBox(height: screenHeight*0.03),
+             Center(child: Text("or sign up with")),
+             SizedBox(height: screenHeight*0.05,),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -112,11 +131,11 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
                   child: IconButton(
                     onPressed: () {},
-                    icon: Image.asset(AppImages.Apple, height: 30, width: 30),
+                    icon: Image.asset(AppImages.apple, height: 30, width: 30),
                     splashRadius: 24,
                   ),
                 ),
-                const SizedBox(width: 20),
+                 SizedBox(width:screenWidth*0.05 ),
                 Container(
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.black, width: 1),
@@ -124,11 +143,11 @@ class _SignupScreenState extends State<SignupScreen> {
                   ),
                   child: IconButton(
                     onPressed: () {},
-                    icon: Image.asset(AppImages.Google, height: 30, width: 30),
+                    icon: Image.asset(AppImages.google, height: 30, width: 30),
                     splashRadius: 24,
                   ),
                 ),
-                const SizedBox(width: 20),
+                 SizedBox(width: screenWidth*0.05 ),
                 Container(
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.black, width: 1),
@@ -137,7 +156,7 @@ class _SignupScreenState extends State<SignupScreen> {
                   child: IconButton(
                     onPressed: () {},
                     icon: Image.asset(
-                      AppImages.Facebook,
+                      AppImages.facebook,
                       height: 30,
                       width: 30,
                     ),
@@ -147,7 +166,7 @@ class _SignupScreenState extends State<SignupScreen> {
               ],
             ),
 
-            const Spacer(),
+            SizedBox(height: screenHeight*0.03,),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [

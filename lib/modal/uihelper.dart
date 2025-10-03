@@ -98,83 +98,79 @@ class UiHelper {
   }
 
   // 🔹 Custom Banner
-  static Widget customBanner({
-    required String title,
-    required String subtitle,
-    required String image,
-    Color? color,
-    required double hight,
-  }) {
-    return Container(
+ static Widget customBanner({
+  required String title,
+  required String subtitle,
+  required String image,
+  Color? color,
+  required double hight,
+}) {
+  return Padding(
+    padding: const EdgeInsets.fromLTRB(10, 0, 10, 0)   ,
+     child: Container(
       height: hight,
-      margin: const EdgeInsets.all(12),
-      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: color ?? Colors.black,
-        borderRadius: BorderRadius.circular(16),
+        color: color ?? const Color(0xFFF9F9F9),
+        borderRadius: BorderRadius.circular(20),
       ),
+      padding: const EdgeInsets.symmetric(horizontal: 30),
       child: Row(
-        mainAxisAlignment: MainAxisAlignment.end,
         children: [
+          // LEFT TEXT SIDE
           Expanded(
+            flex: 2,
             child: Column(
-              crossAxisAlignment: CrossAxisAlignment.center,
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                UiHelper.customText(text: title, size: 16, color: Colors.grey),
-                const SizedBox(height: 25),
-                UiHelper.customText(
-                  text: subtitle,
-                  size: 24,
-                  fontWeight: FontWeight.bold,
-                  color: const Color(0xFF60646F),
+                Text(
+                  title,
+                  style: const TextStyle(
+                    color: Colors.grey,
+                    fontSize: 14,
+                  ),
+                ),
+                const SizedBox(height: 12),
+                Text(
+                  subtitle,
+                  style: const TextStyle(
+                    color: Color(0xFF60646F),
+                    fontSize: 26,
+                    fontWeight: FontWeight.bold,
+                  ),
                 ),
               ],
             ),
           ),
-
-          // RIGHT IMAGE
+    
+          // RIGHT IMAGE SIDE
           Expanded(
+            flex: 2,
             child: Stack(
               alignment: Alignment.center,
               children: [
-                // Circle BG
+                // Background Circle
                 Container(
-                  width: 140,
-                  height: 140,
+                  width: 150,
+                  height: 150,
                   decoration: BoxDecoration(
-                    color: Colors.white.withOpacity(0.6),
+                    color: Colors.grey.withOpacity(0.2),
                     shape: BoxShape.circle,
                   ),
-                  child: Center(
-                    child: Container(
-                      width: 90,
-                      height: 90,
-                      decoration: BoxDecoration(
-                        color: Colors.white.withOpacity(0.95),
-                        shape: BoxShape.circle,
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black26,
-                            blurRadius: 6,
-                            offset: Offset(0, 2),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ),
                 ),
+    
+                // Image on top
                 Image.asset(
                   image,
-                  fit: BoxFit.cover,
-                  height: double.infinity,
-                  width: 200,
+                  height: hight,
+                  fit: BoxFit.fitHeight,
                 ),
               ],
             ),
           ),
         ],
       ),
-    );
-  }
+    ),
+  );
+}
 }

@@ -47,7 +47,7 @@ class _SplasnscreenState extends State<Splasnscreen> {
                     text: " The home for a fashionista",
                     color: Colors.white,
                     fontweight: FontWeight.bold,
-                    height: 17,
+                    height: 18,
                   ),
                   SizedBox(height: 60),
                   GestureDetector(
@@ -76,7 +76,7 @@ class _SplasnscreenState extends State<Splasnscreen> {
                           decoration: BoxDecoration(
                             color: Colors.white.withOpacity(
                               0.25,
-                            ), // rgba(255,255,255,0.25)
+                            ),
                             border: Border.all(
                               color: Colors.white,
                               width: 1.18, // 1.18px border

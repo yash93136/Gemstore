@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gemstore/modal/imagemodal.dart';
 import 'package:gemstore/screen/home/homepage.dart';
 import 'package:gemstore/login_singin/sing_up.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class LoginScreen extends StatefulWidget {
   const LoginScreen({super.key});
@@ -13,71 +14,115 @@ class LoginScreen extends StatefulWidget {
 class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
+  bool _obscurePassword = true;
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
-      body: Padding(
+      body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 50),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            const Text(
+            SizedBox(height: screenHeight * 0.05),
+            Text(
               "Log into",
-              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+              style: GoogleFonts.ptSans(
+                textStyle: const TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 28,
+                  letterSpacing: 0,
+                  color: Colors.black,
+                ),
+              ),
             ),
-            const Text(
+            Text(
               "your account",
-              style: TextStyle(fontSize: 28, fontWeight: FontWeight.bold),
+              style: GoogleFonts.ptSans(
+                textStyle: const TextStyle(
+                  fontWeight: FontWeight.w500,
+                  fontSize: 28,
+                  letterSpacing: 0,
+                  color: Colors.black,
+                ),
+              ),
             ),
-
-            const SizedBox(height: 40),
+            SizedBox(height: screenHeight * 0.05),
             TextField(
               controller: emailController,
               decoration: const InputDecoration(
                 labelText: "Email address",
                 border: UnderlineInputBorder(),
               ),
+              keyboardType: TextInputType.emailAddress,
             ),
-            const SizedBox(height: 20),
+            SizedBox(height: screenHeight * 0.03),
             TextField(
               controller: passwordController,
-              obscureText: true,
-              decoration: const InputDecoration(
+              obscureText: _obscurePassword,
+              decoration: InputDecoration(
                 labelText: "Password",
-                border: UnderlineInputBorder(),
+                border: const UnderlineInputBorder(),
+                suffixIcon: IconButton(
+                  icon: Icon(
+                    _obscurePassword ? Icons.visibility_off : Icons.visibility,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      _obscurePassword = !_obscurePassword;
+                    });
+                  },
+                ),
               ),
             ),
-
-            const SizedBox(height: 10),
+            SizedBox(height: screenHeight * 0.02),
             Align(
               alignment: Alignment.centerRight,
               child: TextButton(
-                onPressed: () {},
+                onPressed: () {
+                  // TODO: Implement forgot password
+                },
                 child: const Text(
                   "Forgot Password?",
                   style: TextStyle(color: Colors.grey),
                 ),
               ),
             ),
-
-            const SizedBox(height: 30),
+            SizedBox(height: screenHeight * 0.05),
             Center(
               child: SizedBox(
-                width: 147,
-                height: 51,
+                width: screenWidth * 0.4,
+                height: screenHeight * 0.06,
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.brown,
+                    backgroundColor: const Color.fromARGB(255, 67, 48, 41),
                     shape: RoundedRectangleBorder(
                       borderRadius: BorderRadius.circular(26.5),
                     ),
-                    elevation: 3, // Optional: adds slight shadow for depth
+                    elevation: 3,
                   ),
                   onPressed: () {
+                    String email = emailController.text.trim();
+                    String password = passwordController.text;
+
+                    if (email.isEmpty || password.isEmpty) {
+                      ScaffoldMessenger.of(context).showSnackBar(
+                        const SnackBar(
+                          content:
+                              Text("Please enter both email and password"),
+                        ),
+                      );
+                      return;
+                    }
+
+                    
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => const HomePage()),
+                      MaterialPageRoute(
+                          builder: (context) =>  HomePage()),
                     );
                   },
                   child: const Text(
@@ -85,63 +130,27 @@ class _LoginScreenState extends State<LoginScreen> {
                     style: TextStyle(
                       color: Colors.white,
                       fontSize: 17,
-                      fontWeight: FontWeight.bold, // Added for better emphasis
-                      letterSpacing: 1.0, // Optional: slight spacing
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1.0,
                     ),
                   ),
                 ),
               ),
             ),
-
-            const SizedBox(height: 20),
+            SizedBox(height: screenHeight * 0.03),
             const Center(child: Text("or log in with")),
-            const SizedBox(height: 50),
+            SizedBox(height: screenHeight * 0.06),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black, width: 1),
-                    shape: BoxShape.circle,
-                  ),
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: Image.asset(AppImages.Apple, height: 30, width: 30),
-                    splashRadius: 24,
-                  ),
-                ),
-                const SizedBox(width: 20),
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black, width: 1),
-                    shape: BoxShape.circle,
-                  ),
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: Image.asset(AppImages.Google, height: 30, width: 30),
-                    splashRadius: 24,
-                  ),
-                ),
-                const SizedBox(width: 20),
-                Container(
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.black, width: 1),
-                    shape: BoxShape.circle,
-                  ),
-                  child: IconButton(
-                    onPressed: () {},
-                    icon: Image.asset(
-                      AppImages.Facebook,
-                      height: 30,
-                      width: 30,
-                    ),
-                    splashRadius: 24,
-                  ),
-                ),
+                _socialLoginButton(AppImages.apple),
+                SizedBox(width: screenWidth * 0.05),
+                _socialLoginButton(AppImages.google),
+                SizedBox(width: screenWidth * 0.05),
+                _socialLoginButton(AppImages.facebook),
               ],
             ),
-
-            const Spacer(),
+            SizedBox(height: screenHeight * 0.09),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
@@ -164,6 +173,21 @@ class _LoginScreenState extends State<LoginScreen> {
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _socialLoginButton(String assetPath) {
+    return Container(
+      decoration: BoxDecoration(
+        border: Border.all(color: Colors.black, width: 1),
+        shape: BoxShape.circle,
+      ),
+      child: IconButton(
+        onPressed: () {
+        },
+        icon: Image.asset(assetPath, height: 30, width: 30),
+        splashRadius: 24,
       ),
     );
   }
