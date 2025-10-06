@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 
 class ProductListScreen extends StatelessWidget {
-  const ProductListScreen({Key? key}) : super(key: key);
+  const ProductListScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +39,7 @@ class ProductListScreen extends StatelessWidget {
                 TextButton.icon(
                   onPressed: () {},
                   icon: const Text('Filter', style: TextStyle(color: Colors.black)),
-                  label: const Icon(Icons.filter_list, color: Colors.black, size: 20),
+                  label: const Icon(Icons.arrow_drop_down, color: Colors.black, size: 20),
                 ),
               ],
             ),
@@ -68,7 +68,7 @@ class ProductListScreen extends StatelessWidget {
 class ProductCard extends StatelessWidget {
   final Product product;
 
-  const ProductCard({Key? key, required this.product}) : super(key: key);
+  const ProductCard({super.key, required this.product});
 
   @override
   Widget build(BuildContext context) {

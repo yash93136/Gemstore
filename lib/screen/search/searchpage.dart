@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gemstore/modal/imagemodal.dart';
-import 'package:gemstore/newfile.dart';
+import 'package:gemstore/screen/product.dart';
 import 'package:gemstore/screen/search/Discover.dart';
 import 'package:gemstore/utils/kyes.dart';
 
@@ -76,7 +76,7 @@ class _SearchPageState extends State<SearchPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: Keys.endDrawreKey,
+      key: Keys.searchEndDrawreKey,
       appBar: AppBar(
         actions: [SizedBox()],
         leading: IconButton(
@@ -150,7 +150,7 @@ class _SearchPageState extends State<SearchPage> {
                   child: IconButton(
                     icon: Icon(Icons.tune, color: Colors.grey.shade700),
                     onPressed: () {
-                      Keys.endDrawreKey.currentState?.openEndDrawer();
+                      Keys.searchEndDrawreKey.currentState?.openEndDrawer();
                     },
                   ),
                 ),
@@ -316,7 +316,9 @@ class _ProductListScreenState extends State<ProductListScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: Keys.searchEndDrawreKey2,
       backgroundColor: Colors.grey[50],
+      endDrawer: Drawer2(),
       appBar: AppBar(
         backgroundColor: Colors.white,
         elevation: 0,
@@ -351,7 +353,7 @@ class _ProductListScreenState extends State<ProductListScreen> {
                 ),
                 TextButton.icon(
                   onPressed: () {
-                    Keys.endDrawreKey.currentState?.openEndDrawer();
+                    Keys.searchEndDrawreKey2.currentState?.openEndDrawer();
                   },
                   icon: const Text(
                     'Filter',
@@ -907,7 +909,8 @@ class _Drawer2State extends State<Drawer2> {
                     onPressed: () {
                       Navigator.pop(context); 
                     },
-                  child:  Text(
+                  child:
+                  Text(
                       'Apply',
                       style: TextStyle(fontSize: 14),
                     ),
@@ -924,6 +927,7 @@ class _Drawer2State extends State<Drawer2> {
     );
   }
 }
+
 String _getCategoryIcon(String category) {
   switch (category) {
     case 'Crop Tops':
@@ -938,4 +942,3 @@ String _getCategoryIcon(String category) {
       return AppImages.collection;
   }
 }
-

@@ -44,7 +44,7 @@ class _DiscoverState extends State<Discover> with TickerProviderStateMixin {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: Keys.endDrawreKey,
+      key: Keys.discoverEndDrawreKey,
       appBar: AppBar(
         title: const Text(
           "Discover",
@@ -157,7 +157,7 @@ class _DiscoverState extends State<Discover> with TickerProviderStateMixin {
                     child: IconButton(
                       icon: Icon(Icons.tune, color: Colors.grey.shade700),
                       onPressed: () {
-                        Keys.endDrawreKey.currentState?.openEndDrawer();
+                        Keys.discoverEndDrawreKey.currentState?.openEndDrawer();
                       },
                     ),
                   ),

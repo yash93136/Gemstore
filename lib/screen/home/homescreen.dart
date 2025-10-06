@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gemstore/modal/drawer.dart';
 import 'package:gemstore/modal/imagemodal.dart';
 import 'package:gemstore/modal/uihelper.dart';
-import 'package:gemstore/newfile.dart';
+import 'package:gemstore/screen/product.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreen extends StatefulWidget {
@@ -158,7 +158,6 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
             ),
 
-            // auto scroll PageView
             Padding(
               padding: const EdgeInsets.all(10.0),
               child: SizedBox(

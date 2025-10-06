@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gemstore/modal/imagemodal.dart';
 import 'package:gemstore/modal/uihelper.dart';
-import 'package:gemstore/login_singin/sing_up.dart';
+import 'package:gemstore/screen/login_singin/sing_up.dart';
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});
