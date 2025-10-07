@@ -1,179 +1,146 @@
 import 'package:flutter/material.dart';
 import 'package:gemstore/modal/imagemodal.dart';
+import 'package:gemstore/screen/home/homepage.dart';
+import 'package:gemstore/screen/login_singin/sing_up.dart';
 import 'package:google_fonts/google_fonts.dart';
 
-class SignupScreen extends StatefulWidget {
-  const SignupScreen({super.key});
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({super.key});
 
   @override
-  State<SignupScreen> createState() => _SignupScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _SignupScreenState extends State<SignupScreen> {
-  double get screenWidth => MediaQuery.of(context).size.width;
-  double get screenHeight => MediaQuery.of(context).size.height;
-  final TextEditingController nameController = TextEditingController();
+class _LoginScreenState extends State<LoginScreen> {
   final TextEditingController emailController = TextEditingController();
   final TextEditingController passwordController = TextEditingController();
-  final TextEditingController confirmPasswordController =
-      TextEditingController();
+  final _formKey = GlobalKey<FormState>();
+  bool _obscurePassword = true;
 
-  final _formKey = GlobalKey<FormState>(); // GlobalKey for the Form
-
-  void _registerUser() {
-    // Validate returns true if the form is valid, or false otherwise.
-    if (_formKey.currentState!.validate()) {
-      if (passwordController.text != confirmPasswordController.text) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(content: Text("Passwords do not match!")),
-        );
-        return;
-      }
-
-      // Simulate registration successful
-      final newUser = {
-        'email': emailController.text.trim(),
-        'password': passwordController.text, // In a real app, hash this!
-        'name': nameController.text.trim(),
-      };
-
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Registration Successful!")),
-      );
-
-      // Navigate back to LoginScreen and pass the new user data
-      Navigator.pop(context, newUser);
-    }
+  @override
+  void dispose() {
+    emailController.dispose();
+    passwordController.dispose();
+    super.dispose();
   }
+
+  /// Handles login logic with basic email/password check
+ void _loginUser() {
+  if (_formKey.currentState!.validate()) {
+    // TEMP: Allow all valid logins
+    Navigator.pushReplacement(
+      context,
+      MaterialPageRoute(builder: (context) => const HomePage()),
+    );
+  }
+}
+
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+    final screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 50),
         child: Form(
           key: _formKey,
-          autovalidateMode: AutovalidateMode.onUserInteraction, // <--- ADD THIS LINE
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               SizedBox(height: screenHeight * 0.05),
-              Text(
-                "Create",
-                style: GoogleFonts.ptSans(
-                  textStyle: const TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 28,
-                    letterSpacing: 0,
-                    color: Colors.black,
-                  ),
-                ),
-              ),
-              Text(
-                "your account",
-                style: GoogleFonts.ptSans(
-                  textStyle: const TextStyle(
-                    fontWeight: FontWeight.w400,
-                    fontSize: 28,
-                    letterSpacing: 0,
-                    color: Colors.black,
-                  ),
-                ),
-              ),
+              _titleText("Log into"),
+              _titleText("your account"),
               SizedBox(height: screenHeight * 0.05),
-              TextFormField(
-                controller: nameController,
-                decoration: const InputDecoration(
-                  labelText: "Enter your name",
-                  border: UnderlineInputBorder(),
-                ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your name';
-                  }
-                  return null;
-                },
-              ),
-              SizedBox(height: screenHeight * 0.02),
+
+              // Email Field
               TextFormField(
                 controller: emailController,
+                keyboardType: TextInputType.emailAddress,
                 decoration: const InputDecoration(
                   labelText: "Email address",
                   border: UnderlineInputBorder(),
                 ),
-                keyboardType: TextInputType.emailAddress,
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter your email';
-                  }
-                  if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
-                    return 'Please enter a valid email address';
-                  }
-                  return null;
-                },
+                validator: _validateEmail,
               ),
               SizedBox(height: screenHeight * 0.02),
+
+              // Password Field
               TextFormField(
                 controller: passwordController,
-                obscureText: true,
-                decoration: const InputDecoration(
+                obscureText: _obscurePassword,
+                decoration: InputDecoration(
                   labelText: "Password",
-                  border: UnderlineInputBorder(),
+                  border: const UnderlineInputBorder(),
+                  suffixIcon: IconButton(
+                    icon: Icon(
+                      _obscurePassword
+                          ? Icons.visibility_off
+                          : Icons.visibility,
+                    ),
+                    onPressed: () {
+                      setState(() {
+                        _obscurePassword = !_obscurePassword;
+                      });
+                    },
+                  ),
                 ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please enter a password';
-                  }
-                  if (value.length < 6) {
-                    return 'Password must be at least 6 characters long';
-                  }
-                  return null;
-                },
+                validator: _validatePassword,
               ),
-              SizedBox(height: screenHeight * 0.02),
-              TextFormField(
-                controller: confirmPasswordController,
-                obscureText: true,
-                decoration: const InputDecoration(
-                  labelText: "Confirm password",
-                  border: UnderlineInputBorder(),
+
+              Align(
+                alignment: Alignment.centerRight,
+                child: TextButton(
+                  onPressed: () {
+                    ScaffoldMessenger.of(context).showSnackBar(
+                      const SnackBar(
+                          content: Text(
+                              "Forgot Password functionality coming soon!")),
+                    );
+                  },
+                  child: const Text(
+                    "Forgot Password?",
+                    style: TextStyle(color: Colors.grey, fontSize: 13),
+                  ),
                 ),
-                validator: (value) {
-                  if (value == null || value.isEmpty) {
-                    return 'Please confirm your password';
-                  }
-                  if (value != passwordController.text) {
-                    return 'Passwords do not match';
-                  }
-                  return null;
-                },
               ),
-              SizedBox(height: screenHeight * 0.05),
+
+              SizedBox(height: screenHeight * 0.03),
+
+              // Login Button
               Center(
                 child: SizedBox(
-                  width: screenWidth * 0.4,
+                  width: screenWidth * 0.45,
                   height: screenHeight * 0.06,
-                  child: Opacity(
-                    opacity: 1.0,
-                    child: ElevatedButton(
-                      style: ElevatedButton.styleFrom(
-                        backgroundColor: const Color.fromARGB(255, 60, 44, 38),
-                        shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(26.5),
-                        ),
+                  child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      backgroundColor:
+                          const Color.fromARGB(255, 60, 44, 38),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(26.5),
                       ),
-                      onPressed: _registerUser,
-                      child: const Text(
-                        "SIGN UP",
-                        style: TextStyle(color: Colors.white, fontSize: 17),
+                      elevation: 3,
+                    ),
+                    onPressed: _loginUser,
+                    child: const Text(
+                      "LOG IN",
+                      style: TextStyle(
+                        color: Colors.white,
+                        fontSize: 17,
+                        fontWeight: FontWeight.bold,
+                        letterSpacing: 1.0,
                       ),
                     ),
                   ),
                 ),
               ),
-              SizedBox(height: screenHeight * 0.03),
-              const Center(child: Text("or sign up with")),
-              SizedBox(height: screenHeight * 0.05),
+
+              SizedBox(height: screenHeight * 0.04),
+              const Center(child: Text("or log in with")),
+              SizedBox(height: screenHeight * 0.04),
+
+              // Social login buttons
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -184,18 +151,27 @@ class _SignupScreenState extends State<SignupScreen> {
                   _socialLoginButton(AppImages.facebook, screenWidth),
                 ],
               ),
-              SizedBox(height: screenHeight * 0.03),
+
+              SizedBox(height: screenHeight * 0.05),
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  const Text("Already have account? "),
+                  const Text("Don’t have an account? "),
                   GestureDetector(
                     onTap: () {
-                      Navigator.pop(context);
+                      Navigator.pushReplacement(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const SignupScreen(),
+                        ),
+                      );
                     },
                     child: const Text(
-                      "Log In",
-                      style: TextStyle(fontWeight: FontWeight.bold),
+                      "Sign Up",
+                      style: TextStyle(
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blue,
+                      ),
                     ),
                   ),
                 ],
@@ -207,6 +183,43 @@ class _SignupScreenState extends State<SignupScreen> {
     );
   }
 
+  /// Title text with consistent styling
+  Widget _titleText(String text) {
+    return Text(
+      text,
+      style: GoogleFonts.ptSans(
+        textStyle: const TextStyle(
+          fontSize: 28,
+          fontWeight: FontWeight.w700,
+          color: Colors.black,
+        ),
+      ),
+    );
+  }
+
+  /// Validates email field
+  String? _validateEmail(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your email address';
+    }
+    if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+      return 'Please enter a valid email address';
+    }
+    return null;
+  }
+
+  /// Validates password field
+  String? _validatePassword(String? value) {
+    if (value == null || value.isEmpty) {
+      return 'Please enter your password';
+    }
+    if (value.length < 6) {
+      return 'Password must be at least 6 characters long';
+    }
+    return null;
+  }
+
+  /// Returns circular social login button
   Widget _socialLoginButton(String assetPath, double screenWidth) {
     return Container(
       decoration: BoxDecoration(
@@ -215,7 +228,13 @@ class _SignupScreenState extends State<SignupScreen> {
       ),
       child: IconButton(
         onPressed: () {
-          // Implement social login logic here
+          ScaffoldMessenger.of(context).showSnackBar(
+            SnackBar(
+              content: Text(
+                "Social login with ${assetPath.split('/').last.split('.').first} coming soon!",
+              ),
+            ),
+          );
         },
         icon: Image.asset(assetPath, height: 30, width: 30),
         splashRadius: 24,

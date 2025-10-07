@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gemstore/screen/checkoutscreen/checkout3.dart';
 
-import 'package:gemstore/screen/splasnscreen.dart';
+
 
 void main() {
   runApp(const MyApp());
@@ -22,7 +23,7 @@ class _MyAppState extends State<MyApp> {
       theme: ThemeData(
         colorScheme: ColorScheme.fromSeed(seedColor: Colors.green),
       ),
-      home: Splasnscreen(),
+      home: OrderCompletedScreen(),
     );
   }
 }

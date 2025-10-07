@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gemstore/modal/imagemodal.dart'; // Assuming this path is correct
+import 'package:gemstore/screen/yourcart.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class ProductDetailScreen extends StatefulWidget {
@@ -362,12 +363,7 @@ class _ProductDetailScreenState extends State<ProductDetailScreen> {
         margin: const EdgeInsets.symmetric(horizontal: 20),
         child: ElevatedButton.icon(
           onPressed: () {
-            ScaffoldMessenger.of(context).showSnackBar(
-              const SnackBar(
-                content: Text("Added to cart!"),
-                duration: Duration(seconds: 2),
-              ),
-            );
+            Navigator.push(context, MaterialPageRoute(builder: (context) => const YourCart()));
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.black, // Background color

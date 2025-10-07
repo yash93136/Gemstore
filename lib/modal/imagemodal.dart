@@ -38,4 +38,5 @@ class AppImages {
   static const String offShoulderDress = "assets/products/offShoulderDress.png";
   static const String oharaDress = "assets/products/oharaDress.png";
   static const String tieBackMiniDress = "assets/products/tieBackMiniDress.png";
+  static const String begorder  = "assets/images/begorder.png";
 }
