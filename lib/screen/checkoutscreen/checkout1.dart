@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:gemstore/screen/checkoutscreen/checkout2.dart';
 
 class Checkout1Screen extends StatefulWidget {
   const Checkout1Screen({super.key});
@@ -9,8 +9,7 @@ class Checkout1Screen extends StatefulWidget {
 }
 
 class _CheckoutShippingScreenState extends State<Checkout1Screen> {
-
-   int? selectedShippingMethod;
+  int? selectedShippingMethod;
   bool _copyAddress = true;
 
   // Controllers for text fields
@@ -41,83 +40,82 @@ class _CheckoutShippingScreenState extends State<Checkout1Screen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SafeArea( 
-           child: SingleChildScrollView(
-          child: Column   ( 
+      body: SafeArea(
+        child: SingleChildScrollView(
+          child: Column(
             children: [
-             Padding(
-  padding: const EdgeInsets.all(16.0),
-  child: Stack(
-    alignment: Alignment.center,
-    children: [
-      Row(
-        children: [
-        Container(
-              margin: const EdgeInsets.only(left: 16, top: 16),
-              decoration: const BoxDecoration(
-                color: Colors.white,
-                shape: BoxShape.circle,
-              ),
-              child: IconButton(
-                icon: const Icon(Icons.arrow_back_ios_new, size: 20, color: Colors.black),
-                onPressed: () => Navigator.pop(context),
-              ),
-            ),
-        ],
-      ),
-      const Center(
-        child: Text(
-          'Check out',
-          style: TextStyle(color: Colors.black, fontSize: 18),
-        ),
-      ),
-    ],
-  ),
-),
-
-            
-            
- Row(
-  mainAxisAlignment: MainAxisAlignment.center,
+              Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Row(
                       children: [
-                        Icon(Icons.location_on, color: Colors.black, size: 30),
-                        const SizedBox(width: 4),
-                        Row(
-                          children: List.generate(
-                            5, // Number of dots
-                            (index) => Container(
-                              margin: const EdgeInsets.symmetric(horizontal: 10),
-                              width: 4,
-                              height: 4,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.grey[300],
-                              ),
-                            ),
+                        Container(
+                          margin: const EdgeInsets.only(left: 16, top: 16),
+                          decoration: const BoxDecoration(
+                            color: Colors.white,
+                            shape: BoxShape.circle,
+                          ),
+                          child: IconButton(
+                            icon: const Icon(Icons.arrow_back_ios_new,
+                                size: 20, color: Colors.black),
+                            onPressed: () => Navigator.pop(context),
                           ),
                         ),
-                        const SizedBox(width: 20 ),
-                        Icon(Icons.credit_card, color: Colors.grey[400], size: 30),
-                        const SizedBox(width: 20 ),
-                         Row(
-                          children: List.generate(
-                            5, // Number of dots
-                            (index) => Container(
-                              margin: const EdgeInsets.symmetric(horizontal: 10),
-                              width: 4,
-                              height: 4,
-                              decoration: BoxDecoration(
-                                shape: BoxShape.circle,
-                                color: Colors.grey[300],
-                              ),
-                            ),
-                          ),
-                        ),
-                        const SizedBox(width: 4),
-                        Icon(Icons.check_circle_rounded, color: Colors.grey[400], size: 30),
                       ],
                     ),
-                    SizedBox(height: 10,),
+                    const Center(
+                      child: Text(
+                        'Check out',
+                        style: TextStyle(color: Colors.black, fontSize: 18),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const Icon(Icons.location_on, color: Colors.black, size: 30),
+                  const SizedBox(width: 4),
+                  Row(
+                    children: List.generate(
+                      5, // Number of dots
+                      (index) => Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 10),
+                        width: 4,
+                        height: 4,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.grey[300],
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 20),
+                  Icon(Icons.credit_card, color: Colors.grey[400], size: 30),
+                  const SizedBox(width: 20),
+                  Row(
+                    children: List.generate(
+                      5, // Number of dots
+                      (index) => Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 10),
+                        width: 4,
+                        height: 4,
+                        decoration: BoxDecoration(
+                          shape: BoxShape.circle,
+                          color: Colors.grey[300],
+                        ),
+                      ),
+                    ),
+                  ),
+                  const SizedBox(width: 4),
+                  Icon(Icons.check_circle_rounded,
+                      color: Colors.grey[400], size: 30),
+                ],
+              ),
+              const SizedBox(height: 10),
               Padding(
                 padding: const EdgeInsets.all(16.0), // Main content padding
                 child: Column(
@@ -141,30 +139,28 @@ class _CheckoutShippingScreenState extends State<Checkout1Screen> {
                     _buildTextField(
                       controller: _firstNameController,
                       labelText: 'First name *',
-                      hintText: '', 
-                      ),
+                      hintText: '',
+                    ),
                     const SizedBox(height: 16),
                     _buildTextField(
                       controller: _lastNameController,
                       labelText: 'Last name *',
                       hintText: '',
-                     
                     ),
                     const SizedBox(height: 16),
-                   DropdownButtonFormField<String>(
-                decoration: const InputDecoration(
-                  labelText: 'Country*',
-                
-                  suffixIcon: Icon(Icons.arrow_drop_down_sharp)
-                ),
-                items: ['USA', 'Canada', 'IND']
-                    .map((country) => DropdownMenuItem(
-                          value: country,
-                          child: Text(country),
-                        ))
-                    .toList(),
-                onChanged: (value) {},
-              ),
+                    DropdownButtonFormField<String>(
+                      decoration: const InputDecoration(
+                        labelText: 'Country*',
+                        suffixIcon: Icon(Icons.arrow_drop_down_sharp),
+                      ),
+                      items: ['USA', 'Canada', 'IND']
+                          .map((country) => DropdownMenuItem(
+                                value: country,
+                                child: Text(country),
+                              ))
+                          .toList(),
+                      onChanged: (value) {},
+                    ),
                     const SizedBox(height: 16),
                     _buildTextField(
                       controller: _streetNameController,
@@ -196,7 +192,7 @@ class _CheckoutShippingScreenState extends State<Checkout1Screen> {
                       hintText: '',
                     ),
                     const SizedBox(height: 25),
-                      
+
                     // Shipping Method
                     const Text(
                       'Shipping method',
@@ -206,51 +202,51 @@ class _CheckoutShippingScreenState extends State<Checkout1Screen> {
                           color: Colors.black),
                     ),
                     const SizedBox(height: 16),
-                   Column(
-                     crossAxisAlignment: CrossAxisAlignment.start,
-                     children: [
-                       ShippingOption(
-                         value: 0,
-                         groupValue: selectedShippingMethod,
-                         onChanged: (int? newValue) {
-                           setState(() {
-                             selectedShippingMethod = newValue ;
-                           });
-                         },
-                         title: 'Delivery to home',
-                         subtitle: 'Delivery from 3 to 7 business days',
-                         price: 'Free',
-                         freePriceColor: Colors.teal, // Custom color for 'Free'
-                         titleColor: Colors.black, // Custom color for 'Delivery to home'
-                       ),
-                       SizedBox(height: 16),
-                       ShippingOption(
-                         value: 1,
-                         groupValue: selectedShippingMethod,
-                         onChanged: (int? newValue) {
-                           setState(() {
-                             selectedShippingMethod = newValue ;
-                           });
-                         },
-                         title: 'Delivery to home',
-                         subtitle: 'Delivery from 4 to 6 business days',
-                         price: '\$9.90',
-                       ),
-                       SizedBox(height: 16),
-                       ShippingOption(
-                         value: 2,
-                         groupValue: selectedShippingMethod,
-                         onChanged: (int? newValue) {
-                           setState(() {
-                             selectedShippingMethod = newValue;
-                           });
-                         },
-                         title: 'Fast Delivery',
-                         subtitle: 'Delivery from 2 to 3 business days',
-                         price: '\$9.90',
-                       ),
-                     ],
-                   ),
+                    Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        ShippingOption(
+                          value: 0,
+                          groupValue: selectedShippingMethod,
+                          onChanged: (int? newValue) {
+                            setState(() {
+                              selectedShippingMethod = newValue;
+                            });
+                          },
+                          title: 'Delivery to home',
+                          subtitle: 'Delivery from 3 to 7 business days',
+                          price: 'Free',
+                          freePriceColor: Colors.teal, // Custom color for 'Free'
+                          titleColor: Colors.black, // Custom color for 'Delivery to home'
+                        ),
+                        const SizedBox(height: 16),
+                        ShippingOption(
+                          value: 1,
+                          groupValue: selectedShippingMethod,
+                          onChanged: (int? newValue) {
+                            setState(() {
+                              selectedShippingMethod = newValue;
+                            });
+                          },
+                          title: 'Delivery to home',
+                          subtitle: 'Delivery from 4 to 6 business days',
+                          price: '\$9.90',
+                        ),
+                        const SizedBox(height: 16),
+                        ShippingOption(
+                          value: 2,
+                          groupValue: selectedShippingMethod,
+                          onChanged: (int? newValue) {
+                            setState(() {
+                              selectedShippingMethod = newValue;
+                            });
+                          },
+                          title: 'Fast Delivery',
+                          subtitle: 'Delivery from 2 to 3 business days',
+                          price: '\$9.90',
+                        ),
+                      ],
+                    ),
                     const SizedBox(height: 32),
 
                     // Coupon Code
@@ -318,7 +314,7 @@ class _CheckoutShippingScreenState extends State<Checkout1Screen> {
                       activeColor: Colors.grey,
                       controlAffinity: ListTileControlAffinity.leading,
                     ),
-                   ],
+                  ],
                 ),
               ),
             ],
@@ -329,13 +325,14 @@ class _CheckoutShippingScreenState extends State<Checkout1Screen> {
         padding: const EdgeInsets.all(16.0),
         child: ElevatedButton(
           onPressed: () {
-            // Handle continue to payment
-          
+            Navigator.push(context, MaterialPageRoute(builder: (context) => Checkout2())); // Example navigation
+        
           },
           style: ElevatedButton.styleFrom(
-            backgroundColor: Colors.black, // Button color
+            backgroundColor: Colors.black, 
             shape: RoundedRectangleBorder(
-              borderRadius: BorderRadius.circular(12), // Rounded corners
+              borderRadius: BorderRadius.circular(12), 
+             
             ),
             padding: const EdgeInsets.symmetric(vertical: 16),
           ),
@@ -389,8 +386,8 @@ class _CheckoutShippingScreenState extends State<Checkout1Screen> {
       ],
     );
   }
- 
 }
+
 class ShippingOption extends StatelessWidget {
   final int value;
   final int? groupValue;
@@ -402,6 +399,7 @@ class ShippingOption extends StatelessWidget {
   final Color? titleColor; // New parameter for title color
 
   const ShippingOption({
+    super.key,
     required this.value,
     required this.groupValue,
     required this.onChanged,
@@ -416,13 +414,13 @@ class ShippingOption extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       decoration: BoxDecoration(
-        color: Colors.white38,
+        color: Colors.white, // Changed from Colors.white38 for better visibility
         boxShadow: [
           BoxShadow(
             color: Colors.grey.withOpacity(0.1),
             spreadRadius: 1,
             blurRadius: 3,
-            offset: Offset(0, 2), // changes position of shadow
+            offset: const Offset(0, 2), // changes position of shadow
           ),
         ],
       ),
@@ -439,24 +437,26 @@ class ShippingOption extends StatelessWidget {
                 style: TextStyle(
                   fontWeight: FontWeight.normal,
                   fontSize: 16,
-                  color: freePriceColor ?? Colors.black, // Default to green if not provided
+                  color: freePriceColor ?? Colors.green, // Default to green if not provided
                 ),
               ),
             if (price != 'Free') // Show price only if it's not 'Free'
               Text(
                 price,
-                style: TextStyle(
+                style: const TextStyle(
                   fontWeight: FontWeight.bold,
                   fontSize: 16,
                 ),
               ),
-            SizedBox(width: 8),
+            const SizedBox(width: 8),
             Text(
               title,
               style: TextStyle(
-                fontWeight: price == 'Free' ? FontWeight.bold : FontWeight.normal,
+                fontWeight:
+                    price == 'Free' ? FontWeight.bold : FontWeight.normal,
                 fontSize: 16,
-                color: titleColor ?? Colors.black, // Default to black if not provided
+                color:
+                    titleColor ?? Colors.black, // Default to black if not provided
               ),
             ),
           ],

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gemstore/modal/imagemodal.dart';
+import 'package:gemstore/screen/checkoutscreen/checkout1.dart';
 
 class YourCart extends StatefulWidget {
   const YourCart({super.key});
@@ -24,7 +25,7 @@ class _YourCartState extends State<YourCart> {
       price: 39.99,
       size: "M",
       color: "White",
-      imageUrl: AppImages.maxiDress, // Replace with actual image URL
+      imageUrl: AppImages.paypal, // Replace with actual image URL
       quantity: 1,
       isChecked: true,
     ),
@@ -177,7 +178,8 @@ class _YourCartState extends State<YourCart> {
         height: 50,
         child: ElevatedButton(
           onPressed: () {
-            // Handle checkout
+            Navigator.push(context, MaterialPageRoute(builder: (context) => Checkout1Screen())); // Example navigation
+        
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.black, // Background color
@@ -238,7 +240,7 @@ class CartItemCard extends StatelessWidget {
       child:  Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          Image.network(
+          Image.asset(
             item.imageUrl,
             width: 90,
             fit: BoxFit.fill,

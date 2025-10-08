@@ -43,6 +43,7 @@ dependencies:
   image_picker: ^1.2.0
   curved_navigation_bar: ^1.0.6
   google_fonts: ^6.3.1
+  flutter_credit_card: ^4.1.0
   
 
 dev_dependencies:

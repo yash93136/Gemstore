@@ -2,12 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:gemstore/modal/imagemodal.dart';
 
 
-class OrderCompletedScreen extends StatefulWidget {
+class Checkout3 extends StatefulWidget {
   @override
-  State<OrderCompletedScreen> createState() => _OrderCompletedScreenState();
+  State<Checkout3> createState() =>_Checkout3State();
 }
 
-class _OrderCompletedScreenState extends State<OrderCompletedScreen> {
+class _Checkout3State extends State<Checkout3> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(

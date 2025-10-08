@@ -34,9 +34,13 @@ class AppImages {
   static const String frontTieMiniDress = "assets/products/frontTieMiniDress.png";
   static const String leavesGreenDress = "assets/products/leavesGreenDress.png";
   static const String linenDress = "assets/products/linenDress.png";
-  static const String maxiDress = "assets/products/maxiDress.png";
   static const String offShoulderDress = "assets/products/offShoulderDress.png";
   static const String oharaDress = "assets/products/oharaDress.png";
   static const String tieBackMiniDress = "assets/products/tieBackMiniDress.png";
   static const String begorder  = "assets/images/begorder.png";
+  static const String paypal = "assets/icon/paypal.png";
+  static const String vish = "assets/icon/visa.png";
+  static const String alipay = "assets/icon/alipay.png";
+  static const String amex = "assets/icon/amex.png";
+  static const String mastercar ="assets/icon/mastercard.png";
 }

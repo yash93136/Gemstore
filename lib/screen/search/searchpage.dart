@@ -18,7 +18,6 @@ class _SearchPageState extends State<SearchPage> {
     {"image": AppImages.frontTieMiniDress, "title": "Front Tie Mini Dress", "price": 59.00},
     {"image": AppImages.leavesGreenDress, "title": "Leaves Green Dress", "price": 64.0},
     {"image": AppImages.linenDress, "title": "Linen Dress", "price": 52.00},
-    {"image": AppImages.maxiDress, "title": "Maxi Dress", "price": 68.00},
     {"image": AppImages.offShoulderDress, "title": "Off Shoulder Dress", "price": 78.00},
     {"image": AppImages.oharaDress, "title": "Ohara Dress", "price": 85.00},
     {"image": AppImages.tieBackMiniDress, "title": "Tie Back Mini Dress", "price": 67.00},

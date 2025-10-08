@@ -57,6 +57,8 @@ class _SignupScreenState extends State<SignupScreen> {
     final screenHeight = MediaQuery.of(context).size.height;
 
     return Scaffold(
+      // Ensure this is true to allow the body to resize when the keyboard appears
+      resizeToAvoidBottomInset: true, 
       body: SingleChildScrollView(
         padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 50),
         child: Form(
@@ -178,7 +180,7 @@ class _SignupScreenState extends State<SignupScreen> {
       decoration: InputDecoration(
         labelText: label,
         border: const UnderlineInputBorder(),
-       
+        
       ),
       validator: validator,
     );
