@@ -2,7 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:gemstore/modal/imagemodal.dart';
 import 'package:gemstore/modal/uihelper.dart' show uihelper;
-import 'package:gemstore/login_singin/sing_up.dart';
+import 'package:gemstore/screen/home/homepage.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Splasnscreen extends StatefulWidget {
@@ -47,14 +47,16 @@ class _SplasnscreenState extends State<Splasnscreen> {
                     text: " The home for a fashionista",
                     color: Colors.white,
                     fontweight: FontWeight.bold,
-                    height: 17,
+                    height: 18,
                   ),
                   SizedBox(height: 60),
                   GestureDetector(
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => SignupScreen()),
+                        MaterialPageRoute(builder: (context) =>  HomePage()
+                        //  SignupScreen()
+                         ),
                       );
                     },
                     child: ClipRRect(
@@ -76,7 +78,7 @@ class _SplasnscreenState extends State<Splasnscreen> {
                           decoration: BoxDecoration(
                             color: Colors.white.withOpacity(
                               0.25,
-                            ), // rgba(255,255,255,0.25)
+                            ),
                             border: Border.all(
                               color: Colors.white,
                               width: 1.18, // 1.18px border

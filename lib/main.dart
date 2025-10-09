@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:gemstore/screen/splasnscreen.dart';
 
-import 'package:gemstore/splasnscreen.dart';
+
 
 void main() {
   runApp(const MyApp());

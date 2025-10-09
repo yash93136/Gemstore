@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:gemstore/screen/home/homescreen.dart';
+import 'package:gemstore/screen/myorders/myorders.dart';
 import 'package:gemstore/screen/search/Discover.dart';
 
 class HomePage extends StatefulWidget {
@@ -11,11 +12,11 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
-
+                                                                                                                                                                       
   final List<Widget> _pages = [
     HomeScreen(),
     Discover(),
-    Center(child: Text("Cart Page", style: TextStyle(fontSize: 22))),
+    MyOrdersPage(),
     Center(child: Text("Profile Page", style: TextStyle(fontSize: 22))),
   ];
 
@@ -34,10 +35,10 @@ class _HomePageState extends State<HomePage> {
           BottomNavigationBarItem(icon: Icon(Icons.home), label: "Home"),
           BottomNavigationBarItem(icon: Icon(Icons.search), label: "search"),
           BottomNavigationBarItem(
-            icon: Icon(Icons.shopping_cart),
+            icon: Icon(Icons.shopping_bag_outlined),
             label: "Cart",
           ),
-          BottomNavigationBarItem(icon: Icon(Icons.person), label: "Profile"),
+          BottomNavigationBarItem(icon: Icon(Icons.person_outlined), label: "Profile"),
         ],
         onTap: (index) {
           setState(() {

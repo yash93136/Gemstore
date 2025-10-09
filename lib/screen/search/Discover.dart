@@ -12,23 +12,19 @@ class Discover extends StatefulWidget {
 class _DiscoverState extends State<Discover> with TickerProviderStateMixin {
   double get screenWidth => MediaQuery.of(context).size.width;
   double get screenHeight => MediaQuery.of(context).size.height;
+  
   bool _expandedClothing = false;
   bool _expandedShoes = false;
-  bool _dressesExpanded = false;
   bool _expandedAccessories = false;
-  bool _expandedCOLLECTION = false;
-  TextEditingController _searchController = TextEditingController();
-  late AnimationController _animationController;
+  bool _expandedCollection = false;
+  bool _dressesExpanded = false;
+  
   late AnimationController _headerAnimationController;
   late Animation<double> _fadeAnimation;
 
   @override
   void initState() {
     super.initState();
-    _animationController = AnimationController(
-      duration: const Duration(milliseconds: 400),
-      vsync: this,
-    );
     _headerAnimationController = AnimationController(
       duration: const Duration(milliseconds: 300),
       vsync: this,
@@ -41,40 +37,14 @@ class _DiscoverState extends State<Discover> with TickerProviderStateMixin {
 
   @override
   void dispose() {
-    _searchController.dispose();
-    _animationController.dispose();
     _headerAnimationController.dispose();
     super.dispose();
-  }
-
-  void _toggleAccessories() {
-    setState(() {
-      _expandedAccessories = !_expandedAccessories;
-    });
-  }
-
-  void _toggleCOLLECTION() {
-    setState(() {
-      _expandedCOLLECTION = !_expandedCOLLECTION;
-    });
-  }
-
-  void _toggleClothing() {
-    setState(() {
-      _expandedClothing = !_expandedClothing;
-    });
-  }
-
-  void _toggleShoes() {
-    setState(() {
-      _expandedShoes = !_expandedShoes;
-    });
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      key: Keys.endDrawreKey,
+      key: Keys.discoverEndDrawreKey,
       appBar: AppBar(
         title: const Text(
           "Discover",
@@ -83,7 +53,6 @@ class _DiscoverState extends State<Discover> with TickerProviderStateMixin {
         centerTitle: true,
         backgroundColor: Colors.white,
         elevation: 0,
-        shadowColor: Colors.black,
         iconTheme: const IconThemeData(color: Colors.black),
         actions: [
           IconButton(
@@ -127,502 +96,260 @@ class _DiscoverState extends State<Discover> with TickerProviderStateMixin {
           padding: const EdgeInsets.all(16.0),
           child: Column(
             children: [
-              Padding(
-                padding: const EdgeInsets.all(16.0),
-                child: Row(
-                  children: [
-                    Expanded(
-                      child: GestureDetector(
+              // Search Bar
+              Row(
+                children: [
+                  Expanded(
+                    child: GestureDetector(
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SearchPage(),
+                          ),
+                        );
+                      },
+                      child: Container(
+                        height: 50,
+                        padding: EdgeInsets.symmetric(horizontal: 16),
+                        decoration: BoxDecoration(
+                          color: Colors.white,
+                          borderRadius: BorderRadius.circular(25),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black12,
+                              blurRadius: 4,
+                              offset: Offset(0, 2),
+                            ),
+                          ],
+                        ),
                         child: Row(
                           children: [
-                            Expanded(
-                              child: GestureDetector(
-                                onTap: () {
-                                  Navigator.push(
-                                    context,
-                                    MaterialPageRoute(
-                                      builder: (context) => SearchPage(),
-                                    ),
-                                  );
-                                },
-                                child: Container(
-                                  height: 50,
-                                  padding: EdgeInsets.symmetric(horizontal: 16),
-                                  decoration: BoxDecoration(
-                                    color: Colors.white,
-                                    borderRadius: BorderRadius.circular(25),
-                                    boxShadow: [
-                                      BoxShadow(
-                                        color: Colors.black12,
-                                        blurRadius: 4,
-                                        offset: Offset(0, 2),
-                                      ),
-                                    ],
-                                  ),
-                                  child: Row(
-                                    children: [
-                                      Icon(Icons.search, color: Colors.grey),
-                                      SizedBox(width: 8),
-                                      Text(
-                                        'Search',
-                                        style: TextStyle(
-                                          color: Colors.grey,
-                                          fontSize: 16,
-                                        ),
-                                      ),
-                                    ],
-                                  ),
-                                ),
+                            Icon(Icons.search, color: Colors.grey),
+                            SizedBox(width: 8),
+                            Text(
+                              'Search',
+                              style: TextStyle(
+                                color: Colors.grey,
+                                fontSize: 16,
                               ),
                             ),
-
-                            SizedBox(width: 10),
                           ],
                         ),
                       ),
                     ),
-                    Container(
-                      height: 50,
-                      width: 50,
-                      decoration: BoxDecoration(
-                        color: Colors.white,
-                        borderRadius: BorderRadius.circular(15),
-                        boxShadow: [
-                          BoxShadow(
-                            color: Colors.black12,
-                            blurRadius: 4,
-                            offset: Offset(0, 2),
-                          ),
-                        ],
-                      ),
-                      child: IconButton(
-                        icon: Icon(Icons.tune, color: Colors.grey.shade700),
-                        onPressed: () {
-                          Keys.endDrawreKey.currentState?.openEndDrawer();
-                        },
-                      ),
+                  ),
+                  SizedBox(width: 10),
+                  Container(
+                    height: 50,
+                    width: 50,
+                    decoration: BoxDecoration(
+                      color: Colors.white,
+                      borderRadius: BorderRadius.circular(15),
+                      boxShadow: [
+                        BoxShadow(
+                          color: Colors.black12,
+                          blurRadius: 4,
+                          offset: Offset(0, 2),
+                        ),
+                      ],
                     ),
-
-                    SizedBox(width: 10),
-                  ],
-                ),
+                    child: IconButton(
+                      icon: Icon(Icons.tune, color: Colors.grey.shade700),
+                      onPressed: () {
+                        Keys.discoverEndDrawreKey.currentState?.openEndDrawer();
+                      },
+                    ),
+                  ),
+                ],
               ),
               SizedBox(height: 24),
-              SingleChildScrollView(
-                child: FadeTransition(
-                  opacity: _fadeAnimation,
-                  child: Column(
-                    children: [
-                      // ---------------- CLOTHING ----------------
-                      GestureDetector(
-                        onTap: _toggleClothing,
-                        child: Container(
-                          width: double.infinity,
-                          height: 130,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.1),
-                                blurRadius: 15,
-                                offset: Offset(0, 5),
-                              ),
-                            ],
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(20),
-                            child: Stack(
-                              children: [
-                                Container(
-                                  width: double.infinity,
-                                  height: 130,
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      image: AssetImage(
-                                        AppImages.discovercolor1,
-                                      ),
-                                      fit: BoxFit.fill,
-                                    ),
-                                  ),
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        SizedBox(width: screenWidth * 0.20),
-                                        const Text(
-                                          "CLOTHING",
-                                          style: TextStyle(
-                                            fontSize: 24,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white,
-                                            letterSpacing: 2,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(width: screenWidth * 0.2),
-                                    Image.asset(
-                                      AppImages.discover1,
-                                      width: screenWidth * 0.3,
-                                      height: screenHeight * 0.50,
-                                      fit: BoxFit.fill,
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
+              
+              // Categories
+              FadeTransition(
+                opacity: _fadeAnimation,
+                child: Column(
+                  children: [
+                    // CLOTHING
+                    _buildCategoryCard(
+                      title: "CLOTHING",
+                      image: AppImages.discover1,
+                      backgroundImage: AppImages.discovercolor1,
+                      isExpanded: _expandedClothing,
+                      onTap: () {
+                        setState(() {
+                          _expandedClothing = !_expandedClothing;
+                        });
+                      },
+                      items: [
+                        _buildItem("Jacket", 128),
+                        _buildItem("Skirts", 40),
+                        _buildExpandableItem("Dresses", 36),
+                        _buildItem("T-Shirts", 12),
+                        _buildItem("Pants", 9, isLast: true),
+                      ],
+                    ),
+                    SizedBox(height: 20),
 
-                      AnimatedSize(
-                        duration: Duration(milliseconds: 400),
-                        curve: Curves.easeInOut,
-                        child: _expandedClothing
-                            ? Container(
-                                margin: EdgeInsets.only(top: 8),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(20),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.1),
-                                      spreadRadius: 1,
-                                      blurRadius: 15,
-                                      offset: Offset(0, 5),
-                                    ),
-                                  ],
-                                ),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(20),
-                                  child: Column(
-                                    children: [
-                                      _buildItem("Jacket", 128),
-                                      _buildItem("Skirts", 40),
-                                      _buildExpandableItem("Dresses", 36),
-                                      _buildItem("T-Shirts", 12),
-                                      _buildItem("Pants", 9),
-                                    ],
-                                  ),
-                                ),
-                              )
-                            : SizedBox.shrink(), // jab collapse ho to kuch na dikhaye
-                      ),
+                    // ACCESSORIES
+                    _buildCategoryCard(
+                      title: "ACCESSORIES",
+                      image: AppImages.discover2,
+                      backgroundImage: AppImages.discovercolor2,
+                      isExpanded: _expandedAccessories,
+                      onTap: () {
+                        setState(() {
+                          _expandedAccessories = !_expandedAccessories;
+                        });
+                      },
+                      items: [
+                        _buildItem("Bags", 52),
+                        _buildItem("Jewelry", 30),
+                        _buildItem("Watches", 18, isLast: true),
+                      ],
+                    ),
+                    SizedBox(height: 20),
 
-                      SizedBox(height: 20),
+                    // SHOES
+                    _buildCategoryCard(
+                      title: "SHOES",
+                      image: AppImages.discover3,
+                      backgroundImage: AppImages.discovercolor3,
+                      isExpanded: _expandedShoes,
+                      onTap: () {
+                        setState(() {
+                          _expandedShoes = !_expandedShoes;
+                        });
+                      },
+                      items: [
+                        _buildItem("Sneakers", 52),
+                        _buildItem("Boots", 30),
+                        _buildItem("Sandals", 18, isLast: true),
+                      ],
+                    ),
+                    SizedBox(height: 20),
 
-                      // ---------------- ACCESSORIES ----------------
-                      GestureDetector(
-                        onTap: _toggleAccessories,
-                        child: Container(
-                          width: double.infinity,
-                          height: 130,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.1),
-                                blurRadius: 15,
-                                offset: Offset(0, 5),
-                              ),
-                            ],
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(20),
-                            child: Stack(
-                              children: [
-                                Container(
-                                  width: double.infinity,
-                                  height: 130,
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      image: AssetImage(
-                                        AppImages.discovercolor2,
-                                      ),
-                                      fit: BoxFit.fill,
-                                    ),
-                                  ),
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        const Text(
-                                          "ACCESSORIES",
-                                          style: TextStyle(
-                                            fontSize: 20,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white,
-                                            letterSpacing: 2,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(width: screenWidth * 0.1),
-                                    Image.asset(
-                                      AppImages.discover2,
-                                      width: screenWidth * 0.4,
-                                      height: screenHeight * 0.50,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-
-                      AnimatedSize(
-                        duration: Duration(milliseconds: 400),
-                        curve: Curves.easeInOut,
-                        child: _expandedAccessories
-                            ? Container(
-                                margin: EdgeInsets.only(top: 8),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(20),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.1),
-                                      spreadRadius: 1,
-                                      blurRadius: 15,
-                                      offset: Offset(0, 5),
-                                    ),
-                                  ],
-                                ),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(20),
-                                  child: Column(
-                                    children: [
-                                      _buildItem("Sneakers", 52),
-                                      _buildItem("Boots", 30),
-                                      _buildItem("Sandals", 18),
-                                    ],
-                                  ),
-                                ),
-                              )
-                            : SizedBox.shrink(), // jab collapse ho to kuch na dikhaye
-                      ),
-
-                      SizedBox(height: 20),
-
-                      // ---------------- SHOES ----------------
-                      GestureDetector(
-                        onTap: _toggleShoes,
-                        child: Container(
-                          width: double.infinity,
-                          height: 130,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.1),
-                                blurRadius: 15,
-                                offset: Offset(0, 5),
-                              ),
-                            ],
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(20),
-                            child: Stack(
-                              children: [
-                                Container(
-                                  width: double.infinity,
-                                  height: 130,
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      image: AssetImage(
-                                        AppImages.discovercolor3,
-                                      ),
-                                      fit: BoxFit.fill,
-                                    ),
-                                  ),
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        SizedBox(width: screenWidth * 0.20),
-                                        const Text(
-                                          "SHOES",
-                                          style: TextStyle(
-                                            fontSize: 24,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white,
-                                            letterSpacing: 2,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(width: screenWidth * 0.2),
-                                    Image.asset(
-                                      AppImages.discover3,
-                                      width: screenWidth * 0.3,
-                                      height: screenHeight * 0.50,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-
-                      AnimatedSize(
-                        duration: Duration(milliseconds: 400),
-                        curve: Curves.easeInOut,
-                        child: _expandedShoes
-                            ? Container(
-                                margin: EdgeInsets.only(top: 8),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(20),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.1),
-                                      spreadRadius: 1,
-                                      blurRadius: 15,
-                                      offset: Offset(0, 5),
-                                    ),
-                                  ],
-                                ),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(20),
-                                  child: Column(
-                                    children: [
-                                      _buildItem("Sneakers", 52),
-                                      _buildItem("Boots", 30),
-                                      _buildItem("Sandals", 18),
-                                    ],
-                                  ),
-                                ),
-                              )
-                            : SizedBox.shrink(), // jab collapse ho to kuch na dikhaye
-                      ),
-                      //nsdcghh
-                      SizedBox(height: 20),
-
-                      // ---------------- COLLECTION ----------------
-                      GestureDetector(
-                        onTap: _toggleCOLLECTION,
-                        child: Container(
-                          width: double.infinity,
-                          height: 130,
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(20),
-                            boxShadow: [
-                              BoxShadow(
-                                color: Colors.black.withOpacity(0.1),
-                                blurRadius: 15,
-                                offset: Offset(0, 5),
-                              ),
-                            ],
-                          ),
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(20),
-                            child: Stack(
-                              children: [
-                                Container(
-                                  width: double.infinity,
-                                  height: 130,
-                                  decoration: BoxDecoration(
-                                    image: DecorationImage(
-                                      image: AssetImage(
-                                        AppImages.discovercolor4,
-                                      ),
-                                      fit: BoxFit.fill,
-                                    ),
-                                  ),
-                                ),
-                                Row(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.spaceEvenly,
-                                  children: [
-                                    Column(
-                                      mainAxisAlignment:
-                                          MainAxisAlignment.center,
-                                      children: [
-                                        SizedBox(width: screenWidth * 0.20),
-                                        const Text(
-                                          "COLLECTION",
-                                          style: TextStyle(
-                                            fontSize: 24,
-                                            fontWeight: FontWeight.bold,
-                                            color: Colors.white,
-                                            letterSpacing: 2,
-                                          ),
-                                        ),
-                                      ],
-                                    ),
-                                    SizedBox(width: screenWidth * 0.2),
-                                    Image.asset(
-                                      AppImages.discover4,
-                                      width: screenWidth * 0.3,
-                                      height: screenHeight * 0.50,
-                                      fit: BoxFit.cover,
-                                    ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ),
-
-                      AnimatedSize(
-                        duration: Duration(milliseconds: 400),
-                        curve: Curves.easeInOut,
-                        child: _expandedCOLLECTION
-                            ? Container(
-                                margin: EdgeInsets.only(top: 8),
-                                decoration: BoxDecoration(
-                                  color: Colors.white,
-                                  borderRadius: BorderRadius.circular(20),
-                                  boxShadow: [
-                                    BoxShadow(
-                                      color: Colors.black.withOpacity(0.1),
-                                      spreadRadius: 1,
-                                      blurRadius: 15,
-                                      offset: Offset(0, 5),
-                                    ),
-                                  ],
-                                ),
-                                child: ClipRRect(
-                                  borderRadius: BorderRadius.circular(20),
-                                  child: Column(
-                                    children: [
-                                      _buildItem("Sneakers", 52),
-                                      _buildItem("Boots", 30),
-                                      _buildItem("Sandals", 18),
-                                    ],
-                                  ),
-                                ),
-                              )
-                            : SizedBox.shrink(), // jab collapse ho to kuch na dikhaye
-                      ),
-                    ],
-                  ),
+                    // COLLECTION
+                    _buildCategoryCard(
+                      title: "COLLECTION",
+                      image: AppImages.discover4,
+                      backgroundImage: AppImages.discovercolor4,
+                      isExpanded: _expandedCollection,
+                      onTap: () {
+                        setState(() {
+                          _expandedCollection = !_expandedCollection;
+                        });
+                      },
+                      items: [
+                        _buildItem("Summer", 52),
+                        _buildItem("Winter", 30),
+                        _buildItem("Spring", 18, isLast: true),
+                      ],
+                    ),
+                  ],
                 ),
               ),
             ],
           ),
         ),
       ),
+    );
+  }
+
+  Widget _buildCategoryCard({
+    required String title,
+    required String image,
+    required String backgroundImage,
+    required bool isExpanded,
+    required VoidCallback onTap,
+    required List<Widget> items,
+  }) {
+    return Column(
+      children: [
+        GestureDetector(
+          onTap: onTap,
+          child: Container(
+            width: double.infinity,
+            height: 130,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(20),
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.black.withOpacity(0.1),
+                  blurRadius: 15,
+                  offset: Offset(0, 5),
+                ),
+              ],
+            ),
+            child: ClipRRect(
+              borderRadius: BorderRadius.circular(20),
+              child: Stack(
+                children: [
+                  Container(
+                    width: double.infinity,
+                    height: 130,
+                    decoration: BoxDecoration(
+                      image: DecorationImage(
+                        image: AssetImage(backgroundImage),
+                        fit: BoxFit.fill,
+                      ),
+                    ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Expanded(
+                        child: Center(
+                          child: Text(
+                            title,
+                            style: const TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.white,
+                              letterSpacing: 2,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Image.asset(
+                        image,
+                        width: screenWidth * 0.35,
+                        height: screenHeight * 0.50,
+                        fit: BoxFit.contain,
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
+        AnimatedSize(
+          duration: Duration(milliseconds: 400),
+          curve: Curves.easeInOut,
+          child: isExpanded
+              ? Container(
+                  margin: EdgeInsets.only(top: 8),
+                  decoration: BoxDecoration(
+                    color: Colors.white,
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: [
+                      BoxShadow(
+                        color: Colors.black.withOpacity(0.1),
+                        spreadRadius: 1,
+                        blurRadius: 15,
+                        offset: Offset(0, 5),
+                      ),
+                    ],
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(20),
+                    child: Column(children: items),
+                  ),
+                )
+              : SizedBox.shrink(),
+        ),
+      ],
     );
   }
 
@@ -665,7 +392,6 @@ class _DiscoverState extends State<Discover> with TickerProviderStateMixin {
           ],
         ),
         onTap: () {
-          print("Selected: $title");
           _navigateToCategory(title, count);
         },
       ),
@@ -767,7 +493,6 @@ class _DiscoverState extends State<Discover> with TickerProviderStateMixin {
           ],
         ),
         onTap: () {
-          print("Selected sub-item: $title");
           _navigateToCategory(title, count);
         },
       ),
