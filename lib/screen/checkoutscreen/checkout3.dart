@@ -26,13 +26,13 @@ class _Checkout3State extends State<Checkout3> {
                 ],
               ),
             ),
-
+            SizedBox(height: 30,),
             // Progress Indicator
            Row(
-  mainAxisAlignment: MainAxisAlignment.center,
+             mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Icon(Icons.location_on, color: Colors.black, size: 30),
-                        const SizedBox(width: 4),
+                        const SizedBox(width: 3),
                         Row(
                           children: List.generate(
                             5, // Number of dots
@@ -42,7 +42,7 @@ class _Checkout3State extends State<Checkout3> {
                               height: 4,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: Colors.grey[300],
+                                color: Colors.black,
                               ),
                             ),
                           ),
@@ -59,7 +59,7 @@ class _Checkout3State extends State<Checkout3> {
                               height: 4,
                               decoration: BoxDecoration(
                                 shape: BoxShape.circle,
-                                color: Colors.grey[300],
+                                color: Colors.black,
                               ),
                             ),
                           ),
@@ -111,7 +111,7 @@ class _Checkout3State extends State<Checkout3> {
                     ),
                   ),
                   onPressed: () {
-                    // Navigate to shopping screen
+                    // Navigator.push(context, MaterialPageRoute(builder: (context) => ));
                   },
                   child: Text(
                     "Continue shopping",

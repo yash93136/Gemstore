@@ -2,7 +2,7 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:gemstore/modal/imagemodal.dart';
 import 'package:gemstore/modal/uihelper.dart' show uihelper;
-import 'package:gemstore/screen/login_singin/sing_up.dart';
+import 'package:gemstore/screen/home/homepage.dart';
 import 'package:google_fonts/google_fonts.dart';
 
 class Splasnscreen extends StatefulWidget {
@@ -54,7 +54,9 @@ class _SplasnscreenState extends State<Splasnscreen> {
                     onTap: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(builder: (context) => SignupScreen()),
+                        MaterialPageRoute(builder: (context) =>  HomePage()
+                        //  SignupScreen()
+                         ),
                       );
                     },
                     child: ClipRRect(

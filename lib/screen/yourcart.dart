@@ -25,7 +25,7 @@ class _YourCartState extends State<YourCart> {
       price: 39.99,
       size: "M",
       color: "White",
-      imageUrl: AppImages.paypal, // Replace with actual image URL
+      imageUrl: AppImages.linenDress, // Replace with actual image URL
       quantity: 1,
       isChecked: true,
     ),
@@ -35,6 +35,24 @@ class _YourCartState extends State<YourCart> {
       size: "L",
       color: "Black",
       imageUrl: AppImages.leavesGreenDress, // Replace with actual image URL
+      quantity: 1,
+      isChecked: true,
+    ),
+    CartItem(
+      name: "Sportwear Set",
+      price: 80.00,
+      size: "L",
+      color: "Cream",
+      imageUrl: AppImages.popular2, // Replace with actual image URL
+      quantity: 1,
+      isChecked: true,
+    ),
+    CartItem(
+      name: "Sportwear Set",
+      price: 80.00,
+      size: "L",
+      color: "Cream",
+      imageUrl: AppImages.popular2, // Replace with actual image URL
       quantity: 1,
       isChecked: true,
     ),
@@ -52,38 +70,42 @@ class _YourCartState extends State<YourCart> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading:
-           Container(
-                decoration: BoxDecoration(
-    color: Colors.white,
-    shape: BoxShape.circle,
-    boxShadow: [
-      BoxShadow(
-        color: Colors.black.withOpacity(0.2), 
-        blurRadius: 5,
-        offset: Offset(0, 3), 
-             ),
-    ],
-  ),
-   child: IconButton(
-    icon: const Icon(Icons.arrow_back_ios_new, size: 20, color: Colors.black),
-    onPressed: () => Navigator.pop(context),
-  ),
-),
-        title: Text(
-          "Your Cart",
-          style: TextStyle(color: Colors.black,),
-        ),
-        centerTitle: true,
-      ),
+
       body: Column(
         children: [
+          Padding(
+                padding: const EdgeInsets.all(16.0),
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                          margin: const EdgeInsets.only(left: 16, top: 16),
+                          decoration: const BoxDecoration(
+                            color: Colors.white,
+                            shape: BoxShape.circle,
+                          ),
+                          child: IconButton(
+                            icon: const Icon(Icons.arrow_back_ios_new,
+                                size: 20, color: Colors.black),
+                            onPressed: () => Navigator.pop(context),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const Center(
+                      child: Text(
+                        'Your Cart',
+                        style: TextStyle(color: Colors.black, fontSize: 18),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
           Expanded(
             child: ListView.builder(
-              padding: EdgeInsets.all(16.0),
+              padding: EdgeInsets.all(14.0),
               itemCount: cartItems.length,
               itemBuilder: (context, index) {
                 return CartItemCard(
@@ -102,7 +124,7 @@ class _YourCartState extends State<YourCart> {
               },
             ),
           ),
-          _buildPriceSummary(),
+           _buildPriceSummary(),
           _buildCheckoutButton(),
         ],
       ),
@@ -114,7 +136,7 @@ class _YourCartState extends State<YourCart> {
       padding: EdgeInsets.all(16.0),
       decoration: BoxDecoration(
         color: Colors.white,
-        border: Border(top: BorderSide(color: Colors.grey.shade200, width: 1)),
+        border: Border(top: BorderSide(color: Colors.grey.shade200, width: 5)),
       ),
       child: Column(
         children: [
@@ -242,8 +264,8 @@ class CartItemCard extends StatelessWidget {
         children: [
           Image.asset(
             item.imageUrl,
-            width: 90,
-            fit: BoxFit.fill,
+            width: 110,
+            fit: BoxFit.cover,
           ),
           SizedBox(width: 16),
           Expanded(

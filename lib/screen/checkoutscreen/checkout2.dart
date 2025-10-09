@@ -292,12 +292,12 @@ class _Checkout2State extends State<Checkout2> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   _buildPaymentTab('Cash', Icons.money),
-                  const SizedBox(width: 40),
+                  
                   _buildPaymentTab('Credit Card', Icons.credit_card),
-                  const SizedBox(width: 40),
+                  
                   _buildPaymentTab("Other", Icons.more_horiz),
                 ],
               ),
@@ -378,16 +378,16 @@ class _Checkout2State extends State<Checkout2> {
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   _buildPaymentIcon(AppImages.paypal, 'PayPal'),
-                  const SizedBox(width: 15),
+                 
                   _buildPaymentIcon(AppImages.vish, 'Visa'),
-                  const SizedBox(width: 15),
+                 
                   _buildPaymentIcon(AppImages.mastercar, 'Mastercard'),
-                  const SizedBox(width: 15),
+                 
                   _buildPaymentIcon(AppImages.alipay, 'Alipay'),
-                  const SizedBox(width: 10),
+                  
                   _buildPaymentIcon(AppImages.amex, 'Amex'),
                 ],
               ),
@@ -650,15 +650,15 @@ class _Checkout2State extends State<Checkout2> {
    
      // Default icon color
    if (label == 'PayPal') {
-      buttonBackgroundColor = const Color(0xFF003087);
+      buttonBackgroundColor = const Color.fromARGB(255, 255, 255, 255);
     
     } else if (label == 'Visa') {
-      buttonBackgroundColor = const Color(0xFF1A1F71);
+      buttonBackgroundColor = const Color.fromARGB(255, 255, 255, 255);
   
     } else if (label == 'Mastercard') {
-      buttonBackgroundColor = const Color(0xFFEB001B);
+      buttonBackgroundColor = const Color.fromARGB(255, 255, 255, 255);
      } else if (label == 'Alipay') {
-      buttonBackgroundColor = const Color(0xFF00A0E9);
+      buttonBackgroundColor = const Color.fromARGB(255, 255, 255, 255);
      
     } else if (label == 'Amex') {
       buttonBackgroundColor = const Color(0xFF2671B6);
@@ -718,8 +718,8 @@ class _Checkout2State extends State<Checkout2> {
         }
       },
       child: Container(
-        width: 65,
-        height: 45,
+        width: 50,
+        height: 40,
         decoration: BoxDecoration(
           color: buttonBackgroundColor,
           borderRadius: BorderRadius.circular(8),
@@ -735,7 +735,7 @@ class _Checkout2State extends State<Checkout2> {
         child: Center(
           child: Image.asset(
             asset,
-            height: 30,
+          
             fit: BoxFit.fill,
           
           ),

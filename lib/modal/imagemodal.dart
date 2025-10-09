@@ -43,4 +43,9 @@ class AppImages {
   static const String alipay = "assets/icon/alipay.png";
   static const String amex = "assets/icon/amex.png";
   static const String mastercar ="assets/icon/mastercard.png";
+  static const String group = "assets/icon/group.png";
+  static const String photoicon = "assets/icon/photoicon.png";
+  static const String cameraicon = "assets/icon/cameraicon.png";
+  static const String trackicon = "assets/icon/track.png";
+  static const String collecttorateicon = "assets/images/collecttorate.png";
 }
