@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:gemstore/modal/imagemodal.dart';
-import 'package:gemstore/screen/home/homepage.dart';
 import 'package:gemstore/screen/myorders/rateproduct.dart';
 
 class OrderDetailsScreen extends StatelessWidget {
@@ -195,7 +194,7 @@ class OrderDetailsScreen extends StatelessWidget {
           ),
           const SizedBox(width: 20),
           SizedBox(
-            width: 80, // Fixed width for price to align
+            width: 80, 
             child: Text(
               price,
               textAlign: TextAlign.right,
@@ -241,13 +240,12 @@ class OrderDetailsScreen extends StatelessWidget {
  Widget _buildActionButtons(BuildContext context) {
     return Row(
       children: [
-        // "Return home" button - bigger
         Expanded(
           flex: 4, // Gives it twice the space of the "Rate" button
           child: OutlinedButton(
             onPressed: () {
               // Handle "Return home"
-              Navigator.push(context, MaterialPageRoute(builder: (context) => const HomePage()));
+             Navigator.of(context).popUntil((route) => route.isFirst);
             },
             style: OutlinedButton.styleFrom(
               padding: const EdgeInsets.symmetric(vertical: 17),

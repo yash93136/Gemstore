@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:gemstore/modal/imagemodal.dart'; // Make sure this path is correct
+import 'package:gemstore/modal/imagemodal.dart';
+import 'package:gemstore/screen/addcard.dart'; // Make sure this path is correct
 import 'package:gemstore/screen/checkoutscreen/checkout3.dart';
-// Make sure this path is correct
 
 class CardModel {
   final String cardNumber;
@@ -9,7 +9,7 @@ class CardModel {
   final String validThru;
   final String cardType;
   final Color cardColor;
-  final String cvv; // Added CVV field
+  final String cvv;
 
   CardModel({
     required this.cardNumber,
@@ -17,8 +17,27 @@ class CardModel {
     required this.validThru,
     required this.cardType,
     required this.cardColor,
-    this.cvv = 'XXX', // Default CVV
+    this.cvv = 'XXX',
   });
+
+  // Helper for copying and updating a card
+  CardModel copyWith({
+    String? cardNumber,
+    String? cardHolderName,
+    String? validThru,
+    String? cardType,
+    Color? cardColor,
+    String? cvv,
+  }) {
+    return CardModel(
+      cardNumber: cardNumber ?? this.cardNumber,
+      cardHolderName: cardHolderName ?? this.cardHolderName,
+      validThru: validThru ?? this.validThru,
+      cardType: cardType ?? this.cardType,
+      cardColor: cardColor ?? this.cardColor,
+      cvv: cvv ?? this.cvv,
+    );
+  }
 }
 
 class Checkout2 extends StatefulWidget {
@@ -33,11 +52,11 @@ class _Checkout2State extends State<Checkout2> {
   double get screenHeight => MediaQuery.of(context).size.height;
   final PageController _pageController = PageController(viewportFraction: 0.85);
   int _currentPage = 0;
-  String _selectedPaymentMethod = 'Credit Card'; // Initial selection
+  String _selectedPaymentMethod = 'Credit Card';
 
   double productPrice = 99.99;
   double subtotal = 99.99;
-  bool _copyAddress = true;
+  bool _agreeToTerms = true; // Renamed _copyAddress for clarity
 
   final List<CardModel> _cards = [
     CardModel(
@@ -63,131 +82,50 @@ class _Checkout2State extends State<Checkout2> {
     });
   }
 
-  // Modified _addNewCard to be _editOrCreateCard
-  void _editOrCreateCard() {
-    // If there are no cards, we are creating a new one.
-    // Otherwise, we are editing the currently displayed card.
-    bool isCreatingNewCard = _cards.isEmpty;
-    CardModel? currentCard;
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
 
-    if (!isCreatingNewCard) {
-      currentCard = _cards[_currentPage];
-    }
-
-    TextEditingController cardNumberController =
-        TextEditingController(text: currentCard?.cardNumber ?? '');
-    TextEditingController cardHolderController =
-        TextEditingController(text: currentCard?.cardHolderName ?? '');
-    TextEditingController validThruController =
-        TextEditingController(text: currentCard?.validThru ?? '');
-    TextEditingController cvvController =
-        TextEditingController(text: currentCard?.cvv ?? '');
-
-
-    showDialog(
-      context: context,
-      builder: (context) {
-        return AlertDialog(
-          title: Text(isCreatingNewCard ? 'Add New Card' : 'Edit Card'),
-          content: SingleChildScrollView( // Added SingleChildScrollView
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                TextField(
-                  controller: cardHolderController,
-                  decoration: const InputDecoration(
-                    labelText: 'Card Holder Name',
-                    hintText: 'John Doe',
-                  ),
-                  textCapitalization: TextCapitalization.words,
-                ),
-                const SizedBox(height: 10),
-                TextField(
-                  controller: cardNumberController,
-                  decoration: const InputDecoration(
-                    labelText: 'Card Number',
-                    hintText: '1234 5678 9012 3456',
-                  ),
-                  keyboardType: TextInputType.number,
-                ),
-                const SizedBox(height: 10),
-                Row(
-                  children: [
-                    Expanded(
-                      child: TextField(
-                        controller: validThruController,
-                        decoration: const InputDecoration(
-                          labelText: 'Valid Thru',
-                          hintText: 'MM/YY',
-                        ),
-                        keyboardType: TextInputType.datetime,
-                      ),
-                    ),
-                    const SizedBox(width: 10),
-                    Expanded(
-                      child: TextField(
-                        controller: cvvController,
-                        decoration: const InputDecoration(
-                          labelText: 'CVV',
-                          hintText: 'XXX',
-                        ),
-                        keyboardType: TextInputType.number,
-                        maxLength: 3, // CVV usually 3 or 4 digits
-                      ),
-                    ),
-                  ],
-                ),
-              ],
-            ),
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context),
-              child: const Text('Cancel'),
-            ),
-            TextButton(
-              onPressed: () {
-                if (cardNumberController.text.isNotEmpty &&
-                    cardHolderController.text.isNotEmpty &&
-                    validThruController.text.isNotEmpty &&
-                    cvvController.text.isNotEmpty) {
-                  setState(() {
-                    CardModel updatedCard = CardModel(
-                      cardNumber: cardNumberController.text,
-                      cardHolderName: cardHolderController.text,
-                      validThru: validThruController.text,
-                      cvv: cvvController.text,
-                      cardType: isCreatingNewCard ? 'Unknown' : currentCard!.cardType, // Preserve type if editing
-                      cardColor: isCreatingNewCard ? Colors.blueAccent : currentCard!.cardColor, // Preserve color if editing
-                    );
-
-                    if (isCreatingNewCard) {
-                      _cards.add(updatedCard);
-                      // Navigate to the new card
-                      Future.delayed(const Duration(milliseconds: 100), () {
-                        _pageController.animateToPage(
-                          _cards.length - 1,
-                          duration: const Duration(milliseconds: 300),
-                          curve: Curves.easeInOut,
-                        );
-                      });
-                    } else {
-                      _cards[_currentPage] = updatedCard;
-                    }
-                  });
-                  Navigator.pop(context);
-                } else {
-                  ScaffoldMessenger.of(context).showSnackBar(
-                    const SnackBar(content: Text('Please fill all card details.')),
+  void _navigateToAddEditCard({CardModel? existingCard, int? cardIndex}) async {
+    final result = await Navigator.push(
+      context,
+      MaterialPageRoute(
+        builder: (context) => AddNewCardScreen(
+          existingCard: existingCard,
+          cardIndex: cardIndex,
+          onCardAdded: (updatedCard, index) {
+            setState(() {
+              if (index == null) {
+                // Add new card
+                _cards.add(updatedCard);
+                // Animate to the new card
+                Future.delayed(const Duration(milliseconds: 100), () {
+                  _pageController.animateToPage(
+                    _cards.length - 1,
+                    duration: const Duration(milliseconds: 300),
+                    curve: Curves.easeInOut,
                   );
-                }
-              },
-              child: Text(isCreatingNewCard ? 'Add' : 'Save'),
-            ),
-          ],
-        );
-      },
+                });
+              } else {
+                // Update existing card
+                _cards[index] = updatedCard;
+              }
+            });
+          }, onSave: (CardModel p1) {  },
+        ),
+      ),
     );
+
+    // If result is true, it means a card was successfully added/updated,
+    // and the onCardAdded callback should have handled the state update.
+    // We can potentially refresh the current page to ensure everything is in sync.
+    if (result == true) {
+      setState(() {
+        // Just rebuild the widget to reflect any changes if necessary
+      });
+    }
   }
 
   @override
@@ -295,9 +233,7 @@ class _Checkout2State extends State<Checkout2> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   _buildPaymentTab('Cash', Icons.money),
-                  
                   _buildPaymentTab('Credit Card', Icons.credit_card),
-                  
                   _buildPaymentTab("Other", Icons.more_horiz),
                 ],
               ),
@@ -316,7 +252,7 @@ class _Checkout2State extends State<Checkout2> {
                     ),
                   ),
                   GestureDetector(
-                    onTap: _editOrCreateCard, // Call the unified method
+                    onTap: () => _navigateToAddEditCard(), // Navigate to add a new card
                     child: const Text(
                       'Add new+',
                       style: TextStyle(
@@ -337,7 +273,8 @@ class _Checkout2State extends State<Checkout2> {
                 itemCount: _cards.length,
                 itemBuilder: (context, index) {
                   return GestureDetector(
-                    onTap: () => _editOrCreateCard(), // Edit the currently visible card
+                    onTap: () => _navigateToAddEditCard(
+                        existingCard: _cards[index], cardIndex: index),
                     child: _buildCreditCard(_cards[index]),
                   );
                 },
@@ -381,13 +318,9 @@ class _Checkout2State extends State<Checkout2> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   _buildPaymentIcon(AppImages.paypal, 'PayPal'),
-                 
                   _buildPaymentIcon(AppImages.vish, 'Visa'),
-                 
                   _buildPaymentIcon(AppImages.mastercar, 'Mastercard'),
-                 
                   _buildPaymentIcon(AppImages.alipay, 'Alipay'),
-                  
                   _buildPaymentIcon(AppImages.amex, 'Amex'),
                 ],
               ),
@@ -403,10 +336,10 @@ class _Checkout2State extends State<Checkout2> {
                   'I agree to Terms and conditions',
                   style: TextStyle(fontSize: 16, color: Colors.black),
                 ),
-                value: _copyAddress,
+                value: _agreeToTerms,
                 onChanged: (bool? newValue) {
                   setState(() {
-                    _copyAddress = newValue!;
+                    _agreeToTerms = newValue!;
                   });
                 },
                 activeColor: Colors.green,
@@ -420,8 +353,13 @@ class _Checkout2State extends State<Checkout2> {
         padding: const EdgeInsets.all(16.0),
         child: ElevatedButton(
           onPressed: () {
-            // Handle continue to payment
-            Navigator.push(context, MaterialPageRoute(builder: (context) => Checkout3())); // Example navigation
+            if (_agreeToTerms) {
+              Navigator.push(context, MaterialPageRoute(builder: (context) =>  Checkout3()));
+            } else {
+              ScaffoldMessenger.of(context).showSnackBar(
+                const SnackBar(content: Text('Please agree to terms and conditions.')),
+              );
+            }
           },
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.black,
@@ -572,6 +510,7 @@ class _Checkout2State extends State<Checkout2> {
                   borderRadius: BorderRadius.circular(8),
                 ),
                 child: Center(
+                  // You might want to display a small card logo here based on card.cardType
                 ),
               ),
               Text(
@@ -647,53 +586,39 @@ class _Checkout2State extends State<Checkout2> {
 
   Widget _buildPaymentIcon(String asset, String label) {
     Color buttonBackgroundColor = Colors.white;
-   
-     // Default icon color
-   if (label == 'PayPal') {
-      buttonBackgroundColor = const Color.fromARGB(255, 255, 255, 255);
-    
-    } else if (label == 'Visa') {
-      buttonBackgroundColor = const Color.fromARGB(255, 255, 255, 255);
-  
-    } else if (label == 'Mastercard') {
-      buttonBackgroundColor = const Color.fromARGB(255, 255, 255, 255);
-     } else if (label == 'Alipay') {
-      buttonBackgroundColor = const Color.fromARGB(255, 255, 255, 255);
-     
-    } else if (label == 'Amex') {
-      buttonBackgroundColor = const Color(0xFF2671B6);
-      
-    }
 
     return GestureDetector(
       onTap: () {
-        // Find existing card or add a new one, then navigate
         int index = _cards.indexWhere((card) => card.cardType == label);
 
         if (index != -1) {
-          // Card type exists, navigate to it
           _pageController.animateToPage(
             index,
             duration: const Duration(milliseconds: 300),
             curve: Curves.easeInOut,
           );
         } else {
-          // Card type does not exist, add a new one and navigate
           String cardType = label;
           Color cardColor;
 
-          if (label == 'PayPal') {
-            cardColor = const Color(0xFF003087);
-          } else if (label == 'Visa') {
-            cardColor = const Color(0xFF1A1F71);
-          } else if (label == 'Mastercard') {
-            cardColor = const Color(0xFFEB001B);
-          } else if (label == 'Alipay') {
-            cardColor = const Color(0xFF00A0E9);
-          } else if (label == 'Amex') {
-            cardColor = const Color(0xFF2671B6);
-          } else {
-            cardColor = Colors.grey; // Default color for unknown types
+          switch (label) {
+            case 'PayPal':
+              cardColor = const Color(0xFF003087);
+              break;
+            case 'Visa':
+              cardColor = const Color(0xFF1A1F71);
+              break;
+            case 'Mastercard':
+              cardColor = const Color(0xFFEB001B);
+              break;
+            case 'Alipay':
+              cardColor = const Color(0xFF00A0E9);
+              break;
+            case 'Amex':
+              cardColor = const Color(0xFF2671B6);
+              break;
+            default:
+              cardColor = Colors.grey;
           }
 
           setState(() {
@@ -702,7 +627,7 @@ class _Checkout2State extends State<Checkout2> {
                 cardNumber: '0000 0000 0000 0000',
                 cardHolderName: 'Card Holder Name',
                 validThru: 'MM/YY',
-                cvv: 'XXX', // Default CVV
+                cvv: 'XXX',
                 cardType: cardType,
                 cardColor: cardColor,
               ),
@@ -735,9 +660,7 @@ class _Checkout2State extends State<Checkout2> {
         child: Center(
           child: Image.asset(
             asset,
-          
-            fit: BoxFit.fill,
-          
+            fit: BoxFit.contain, // Changed to contain to avoid cropping issues
           ),
         ),
       ),

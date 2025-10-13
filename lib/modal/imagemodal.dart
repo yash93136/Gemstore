@@ -48,4 +48,5 @@ class AppImages {
   static const String cameraicon = "assets/icon/cameraicon.png";
   static const String trackicon = "assets/icon/track.png";
   static const String collecttorateicon = "assets/images/collecttorate.png";
+  static const String mastercardiogo= "assets/icon/mastercardiogo.png";
 }

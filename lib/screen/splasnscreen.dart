@@ -52,7 +52,7 @@ class _SplasnscreenState extends State<Splasnscreen> {
                   SizedBox(height: 60),
                   GestureDetector(
                     onTap: () {
-                      Navigator.push(
+                      Navigator.pushReplacement(
                         context,
                         MaterialPageRoute(builder: (context) =>  HomePage()
                         //  SignupScreen()

@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gemstore/modal/drawer.dart';
 import 'package:gemstore/screen/myorders/order1.dart';
+import 'package:gemstore/screen/notifications.dart';
 
 class MyOrdersPage extends StatefulWidget {
   const MyOrdersPage({Key? key}) : super(key: key);
@@ -41,10 +42,6 @@ class _MyOrdersPageState extends State<MyOrdersPage> with TickerProviderStateMix
             fontWeight: FontWeight.bold,
           ),
         ),
-        leading: IconButton(
-          icon: const Icon(Icons.menu, color: Colors.black),
-          onPressed: () {},
-        ),
         actions: [
           IconButton(
             icon: Stack(
@@ -64,11 +61,13 @@ class _MyOrdersPageState extends State<MyOrdersPage> with TickerProviderStateMix
                 ),
               ],
             ),
-            onPressed: () {},
+            onPressed: () {
+               Navigator.push(context, MaterialPageRoute(builder: (context) =>NotificationScreen()));
+            },
           ),
         ],
       ),
-      drawer: CustomDrawer(),
+      drawer: CustomDrawer(currentPage: 'myorders',),
       body: Column(
         children: [
           Container(

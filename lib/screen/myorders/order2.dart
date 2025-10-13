@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:gemstore/modal/imagemodal.dart';
 import 'package:gemstore/screen/home/homepage.dart';
 import 'package:gemstore/screen/myorders/trackorder.dart';
-
 class OrderDetails2Screen extends StatefulWidget {
   const OrderDetails2Screen({super.key});
 

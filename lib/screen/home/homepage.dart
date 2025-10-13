@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gemstore/screen/home/homescreen.dart';
 import 'package:gemstore/screen/myorders/myorders.dart';
+import 'package:gemstore/screen/profile/profile.dart';
 import 'package:gemstore/screen/search/Discover.dart';
 
 class HomePage extends StatefulWidget {
@@ -12,19 +13,20 @@ class HomePage extends StatefulWidget {
 
 class _HomePageState extends State<HomePage> {
   int _currentIndex = 0;
-                                                                                                                                                                       
+
   final List<Widget> _pages = [
-    HomeScreen(),
-    Discover(),
-    MyOrdersPage(),
-    Center(child: Text("Profile Page", style: TextStyle(fontSize: 22))),
+    HomeScreen(),      // This will have its own Scaffold with an AppBar
+    Discover(),        // This will have its own Scaffold with an AppBar
+    MyOrdersPage(),    // This will have its own Scaffold with an AppBar
+    // For the Profile page, let's make it a proper widget with a Scaffold
+    ProfileScreen(),
   ];
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      // NO AppBar or Drawer here. These will be in individual page's Scaffolds.
       body: IndexedStack(index: _currentIndex, children: _pages),
-
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: _currentIndex,
         iconSize: 30,
@@ -49,3 +51,4 @@ class _HomePageState extends State<HomePage> {
     );
   }
 }
+

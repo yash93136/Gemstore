@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:gemstore/modal/drawer.dart';
 import 'package:gemstore/modal/imagemodal.dart';
+import 'package:gemstore/screen/notifications.dart';
 import 'package:gemstore/screen/search/searchpage.dart';
 import 'package:gemstore/utils/kyes.dart';
 
@@ -57,23 +58,14 @@ class _DiscoverState extends State<Discover> with TickerProviderStateMixin {
         actions: [
           IconButton(
             onPressed: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(
-                  content: Text("Notifications opened"),
-                  backgroundColor: Colors.blue,
-                  behavior: SnackBarBehavior.floating,
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                ),
-              );
+              Navigator.push(context, MaterialPageRoute(builder: (context) =>NotificationScreen()));
             },
             icon: Stack(
               children: [
                 const Icon(Icons.notifications_outlined),
                 Positioned(
-                  right: 0,
-                  top: 0,
+                  right: 3,
+                  top: 3,
                   child: Container(
                     width: 8,
                     height: 8,
@@ -88,7 +80,7 @@ class _DiscoverState extends State<Discover> with TickerProviderStateMixin {
           ),
         ],
       ),
-      drawer: CustomDrawer(),
+      drawer: CustomDrawer(currentPage: "Discover",),
       endDrawer: Drawer2(),
       backgroundColor: Colors.grey.shade50,
       body: SingleChildScrollView(

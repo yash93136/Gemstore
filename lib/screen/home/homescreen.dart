@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:gemstore/modal/drawer.dart';
 import 'package:gemstore/modal/imagemodal.dart';
 import 'package:gemstore/modal/uihelper.dart';
+import 'package:gemstore/screen/notifications.dart';
 import 'package:gemstore/screen/product.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -81,21 +82,36 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
+    appBar: AppBar(
         title: const Text("Gemstore", style: TextStyle(color: Colors.black)),
         centerTitle: true,
         backgroundColor: Colors.white54,
         elevation: 0,
         iconTheme: const IconThemeData(color: Colors.black),
-
-        actions: [
+       actions: [
           IconButton(
-            onPressed: () {},
-            icon: const Icon(Icons.notifications_outlined),
+            icon: Stack(
+              children: [
+                const Icon(Icons.notifications_none, color: Colors.black),
+                Positioned(
+                  right: 3,
+                  top: 3,
+                  child: Container(
+                    height: 8,
+                    width: 8,
+                    decoration: const BoxDecoration(
+                      color: Colors.pink,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                ),
+              ],
+            ),
+            onPressed: () { Navigator.push(context, MaterialPageRoute(builder: (context) =>NotificationScreen()));},
           ),
         ],
       ),
-      drawer: CustomDrawer(),
+      drawer: CustomDrawer(currentPage: "Homepage",),
       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
