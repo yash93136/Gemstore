@@ -105,6 +105,7 @@ class OrderDetailsScreen extends StatelessWidget {
 
   Widget _buildOrderInfoCard() {
     return Card(
+      
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(10),
       ),
@@ -244,7 +245,6 @@ class OrderDetailsScreen extends StatelessWidget {
           flex: 4, // Gives it twice the space of the "Rate" button
           child: OutlinedButton(
             onPressed: () {
-              // Handle "Return home"
              Navigator.of(context).popUntil((route) => route.isFirst);
             },
             style: OutlinedButton.styleFrom(

@@ -40,24 +40,23 @@ class CardModel {
   }
 }
 
-class Checkout2 extends StatefulWidget {
-  const Checkout2({Key? key}) : super(key: key);
+class Paymant extends StatefulWidget {
+  const Paymant ({Key? key}) : super(key: key);
 
   @override
-  State<Checkout2> createState() => _Checkout2State();
+  State<Paymant> createState() => _Checkout2State();
 }
 
-class _Checkout2State extends State<Checkout2> {
+class _Checkout2State extends State<Paymant> {
   double get screenWidth => MediaQuery.of(context).size.width;
   double get screenHeight => MediaQuery.of(context).size.height;
   final PageController _pageController = PageController(viewportFraction: 0.85);
   int _currentPage = 0;
-  String _selectedPaymentMethod = 'Credit Card';
+  
 
   double productPrice = 99.99;
   double subtotal = 99.99;
-  bool _agreeToTerms = true; // Renamed _copyAddress for clarity
-
+  bool agreeToTerms = true; 
   final List<CardModel> _cards = [
     CardModel(
       cardNumber: '4364 1345 8932 8378',
@@ -93,7 +92,7 @@ class _Checkout2State extends State<Checkout2> {
       context,
       MaterialPageRoute(
         builder: (context) => AddNewCardScreen(
-          existingCard: existingCard,
+
           cardIndex: cardIndex,
           onCardAdded: (updatedCard, index) {
             setState(() {
@@ -113,15 +112,11 @@ class _Checkout2State extends State<Checkout2> {
                 _cards[index] = updatedCard;
               }
             });
-          }, onSave: (CardModel p1) {  },
+          }, onSave: (CardModel) {  },
         ),
       ),
     );
-
-    // If result is true, it means a card was successfully added/updated,
-    // and the onCardAdded callback should have handled the state update.
-    // We can potentially refresh the current page to ensure everything is in sync.
-    if (result == true) {
+if (result == true) {
       setState(() {
         // Just rebuild the widget to reflect any changes if necessary
       });
@@ -165,81 +160,7 @@ class _Checkout2State extends State<Checkout2> {
               ),
             ),
             const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const Icon(Icons.location_on, color: Colors.black, size: 30),
-                const SizedBox(width: 4),
-                Row(
-                  children: List.generate(
-                    5,
-                    (index) => Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 10),
-                      width: 4,
-                      height: 4,
-                      decoration: const BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.black,
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 20),
-                const Icon(Icons.credit_card, color: Colors.black, size: 30),
-                const SizedBox(width: 20),
-                Row(
-                  children: List.generate(
-                    5,
-                    (index) => Container(
-                      margin: const EdgeInsets.symmetric(horizontal: 10),
-                      width: 4,
-                      height: 4,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: Colors.grey[300],
-                      ),
-                    ),
-                  ),
-                ),
-                const SizedBox(width: 4),
-                Icon(Icons.check_circle_rounded, color: Colors.grey[400], size: 30),
-              ],
-            ),
-            const SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.all(18),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    'STEP 2',
-                    style: TextStyle(color: Colors.grey[600], fontSize: 12),
-                  ),
-                  const SizedBox(height: 4),
-                  const Text(
-                    'Payment',
-                    style: TextStyle(
-                        fontSize: 24,
-                        fontWeight: FontWeight.bold,
-                        color: Colors.black),
-                  ),
-                  const SizedBox(height: 24),
-                ],
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  _buildPaymentTab('Cash', Icons.money),
-                  _buildPaymentTab('Credit Card', Icons.credit_card),
-                  _buildPaymentTab("Other", Icons.more_horiz),
-                ],
-              ),
-            ),
-            const SizedBox(height: 30),
-            Padding(
+           Padding(
               padding: const EdgeInsets.symmetric(horizontal: 20),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -325,27 +246,7 @@ class _Checkout2State extends State<Checkout2> {
                 ],
               ),
             ),
-            const SizedBox(height: 20),
-            _buildPriceSummary(),
-            const SizedBox(height: 20),
-            Padding(
-              padding: const EdgeInsets.symmetric(horizontal: 20.0),
-              child: CheckboxListTile(
-                contentPadding: EdgeInsets.zero,
-                title: const Text(
-                  'I agree to Terms and conditions',
-                  style: TextStyle(fontSize: 16, color: Colors.black),
-                ),
-                value: _agreeToTerms,
-                onChanged: (bool? newValue) {
-                  setState(() {
-                    _agreeToTerms = newValue!;
-                  });
-                },
-                activeColor: Colors.green,
-                controlAffinity: ListTileControlAffinity.leading,
-              ),
-            ),
+          
           ],
         ),
       ),
@@ -353,7 +254,7 @@ class _Checkout2State extends State<Checkout2> {
         padding: const EdgeInsets.all(16.0),
         child: ElevatedButton(
           onPressed: () {
-            if (_agreeToTerms) {
+            if (agreeToTerms) {
               Navigator.push(context, MaterialPageRoute(builder: (context) =>  Checkout3()));
             } else {
               ScaffoldMessenger.of(context).showSnackBar(
@@ -377,111 +278,7 @@ class _Checkout2State extends State<Checkout2> {
     );
   }
 
-  Widget _buildPriceSummary() {
-    return Container(
-      padding: const EdgeInsets.all(16.0),
-      decoration: BoxDecoration(
-        color: Colors.white,
-        border: Border(top: BorderSide(color: Colors.grey.shade200, width: 1)),
-      ),
-      child: Column(
-        children: [
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Product price",
-                style: TextStyle(fontSize: 16, color: Colors.grey.shade700),
-              ),
-              Text(
-                "\$${productPrice.toStringAsFixed(2)}",
-                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-          Divider(height: 30, thickness: 1, color: Colors.grey.shade300),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Text(
-                "Shipping",
-                style: TextStyle(fontSize: 16, color: Colors.grey.shade700),
-              ),
-              const Text(
-                "Freeship",
-                style: TextStyle(
-                    fontSize: 16,
-                    fontWeight: FontWeight.bold,
-                    color: Colors.green),
-              ),
-            ],
-          ),
-          Divider(height: 30, thickness: 1, color: Colors.grey.shade300),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              const Text(
-                "Subtotal",
-                style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-              Text(
-                "\$${subtotal.toStringAsFixed(2)}",
-                style: const TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
-              ),
-            ],
-          ),
-        ],
-      ),
-    );
-  }
-
-  Widget _buildPaymentTab(String title, IconData icon) {
-    bool isSelected = _selectedPaymentMethod == title;
-    return GestureDetector(
-      onTap: () {
-        setState(() {
-          _selectedPaymentMethod = title;
-        });
-      },
-      child: Container(
-        width: 100,
-        padding: const EdgeInsets.all(1),
-        decoration: BoxDecoration(
-          color: isSelected ? const Color(0xFF2D3142) : Colors.white,
-          borderRadius: BorderRadius.circular(8),
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.5),
-              spreadRadius: 3,
-              blurRadius: 10,
-              offset: const Offset(0, 3),
-            ),
-          ],
-        ),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            Icon(
-              icon,
-              color: isSelected ? Colors.white : Colors.grey[700],
-              size: 40,
-            ),
-            if (title.isNotEmpty)
-              Text(
-                title,
-                style: TextStyle(
-                  color: isSelected ? Colors.white : Colors.black87,
-                  fontSize: 14,
-                ),
-              ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildCreditCard(CardModel card) {
+ Widget _buildCreditCard(CardModel card) {
     return Container(
       margin: const EdgeInsets.symmetric(horizontal: 10),
       padding: const EdgeInsets.all(20),
@@ -584,7 +381,7 @@ class _Checkout2State extends State<Checkout2> {
     );
   }
 
- Widget _buildPaymentIcon(String asset, String label) {
+  Widget _buildPaymentIcon(String asset, String label) {
   Color buttonBackgroundColor; // Declare here, assign dynamically
 
   switch (label) {

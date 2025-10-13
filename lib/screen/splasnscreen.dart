@@ -52,12 +52,13 @@ class _SplasnscreenState extends State<Splasnscreen> {
                   SizedBox(height: 60),
                   GestureDetector(
                     onTap: () {
-                      Navigator.pushReplacement(
-                        context,
-                        MaterialPageRoute(builder: (context) =>  HomePage()
-                        //  SignupScreen()
-                         ),
-                      );
+                     Navigator.pushAndRemoveUntil(
+                      context,
+  MaterialPageRoute(
+    builder: (context) => HomePage(),
+  ),
+  (Route<dynamic> route) => false,
+);
                     },
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(

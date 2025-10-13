@@ -27,26 +27,41 @@ class _ProfileSettingScreenState extends State<ProfileSettingScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.white,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios, color: Colors.black),
-          onPressed: () {
-            Navigator.pop(context); // Go back to the previous screen
-          },
-        ),
-        title: const Text(
-          'Profile Setting',
-          style: TextStyle(color: Colors.black, fontWeight: FontWeight.bold),
-        ),
-        centerTitle: true,
-      ),
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(20.0),
           child: Column(
             children: [
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                           decoration: const BoxDecoration(
+                            color: Colors.white,
+                            shape: BoxShape.circle,
+                          ),
+                          child: IconButton(
+                            icon: const Icon(Icons.arrow_back_ios_new,
+                                size: 20, color: Colors.black),
+                            onPressed: () => Navigator.pop(context),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const Center(
+                      child: Text(
+                        'Profile Setting',
+                        style: TextStyle(color: Colors.black, fontSize: 18),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 20,),
               Stack(
                 children: [
                   const CircleAvatar(

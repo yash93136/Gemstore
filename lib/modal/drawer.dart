@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:gemstore/main.dart';
 import 'package:gemstore/screen/home/homepage.dart';
 import 'package:gemstore/screen/myorders/myorders.dart';
+import 'package:gemstore/screen/profile/payment/setting.dart';
 import 'package:gemstore/screen/search/discover.dart';
 import 'package:provider/provider.dart'; // Import provider for ThemeManager
 
@@ -26,7 +27,6 @@ class CustomDrawer extends StatelessWidget {
       ),
       child: Column(
         children: [
-          // User Info Section (Same as before)
           Padding(
             padding: const EdgeInsets.only(top: 50.0, left: 20, bottom: 20),
             child: Row(
@@ -34,8 +34,8 @@ class CustomDrawer extends StatelessWidget {
               children: [
                 CircleAvatar(
                   radius: 30,
-                  backgroundColor: Colors.pink.shade100,
-                  child: const Icon(Icons.person, color: Colors.pink),
+                  // backgroundColor: Colors.white,
+                  child: const Icon(Icons.person, color: Colors.black),
                 ),
                 const SizedBox(width: 15),
                 Column(
@@ -138,7 +138,7 @@ class CustomDrawer extends StatelessWidget {
                   onTap: () {
                     Navigator.pushReplacement(
                       context,
-                      MaterialPageRoute(builder: (context) => MyOrdersPage()),
+                      MaterialPageRoute(builder: (context) => SettingScreen()),
                     );
                   },
                 ),
@@ -290,13 +290,13 @@ class CustomDrawer extends StatelessWidget {
       child: ListTile(
         leading: Icon(
           icon,
-          color: isSelected ? Theme.of(context).primaryColor : Colors.grey.shade700,
+         // color: isSelected ? Theme.of(context).primaryColor : Colors.grey.shade700,
         ),
         title: Text(
           text,
           style: TextStyle(
             fontSize: 16,
-            color: isSelected ? Theme.of(context).primaryColor : Colors.black87,
+          //  color: isSelected ? Theme.of(context).primaryColor : Colors.black87,
             fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
           ),
         ),

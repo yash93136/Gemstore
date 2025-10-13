@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:gemstore/screen/profile/address.dart';
+import 'package:gemstore/screen/profile/mywishlist.dart';
+import 'package:gemstore/screen/profile/payment/payment.dart';
 import 'package:gemstore/screen/profile/profilesetting.dart';
+import 'package:gemstore/screen/profile/rate1.dart';
+import 'package:gemstore/screen/profile/voucher.dart';
 
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({super.key});
@@ -14,26 +19,26 @@ class ProfileScreen extends StatelessWidget {
         title: const Text(''),
       ),
       body: Column(
-        children: [
+        children: [  
           Expanded(
             child: SingleChildScrollView(
               child: Padding(
                 padding: const EdgeInsets.all(16.0),
                 child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+                  crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     const SizedBox(height: 20),
                     Row(
                       crossAxisAlignment: CrossAxisAlignment.center,
+                      mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         const CircleAvatar(
                           radius: 30,
                           backgroundColor: Colors.pinkAccent,
-                          backgroundImage: NetworkImage('https://via.placeholder.com/150/FF69B4/FFFFFF?text=S'), // Placeholder image
                         ),
                         const SizedBox(width: 16),
                         Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
+                          crossAxisAlignment: CrossAxisAlignment.center,
                           children: [
                             const Text(
                               'Sunie Pham',
@@ -51,7 +56,7 @@ class ProfileScreen extends StatelessWidget {
                             ),
                           ],
                         ),
-                        const Spacer(),
+                        SizedBox(width: 40,),
                         IconButton(
                           icon: const Icon(Icons.settings, color: Colors.black),
                           onPressed: () {
@@ -64,18 +69,40 @@ class ProfileScreen extends StatelessWidget {
                       ],
                     ),
                     const SizedBox(height: 30),
-                    _buildProfileOption(Icons.location_on, 'Address', () {}),
-                    _buildProfileOption(Icons.credit_card, 'Payment method', () {}),
-                    _buildProfileOption(Icons.receipt, 'Voucher', () {}),
-                    _buildProfileOption(Icons.favorite_border, 'My Wishlist', () {}),
-                    _buildProfileOption(Icons.star_border, 'Rate this app', () {}),
+                    _buildProfileOption(Icons.location_on, 'Address', () { Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => DeliveryAddressScreen()),
+                      );}),
+                    _buildProfileOption(Icons.credit_card, 'Payment method', () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => Paymant()),
+                      );
+                    }),
+                    _buildProfileOption(Icons.receipt, 'Voucher', () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => VoucherScreen()),
+                      );
+                    }),
+                    _buildProfileOption(Icons.favorite_border, 'My Wishlist', () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => WishlistPage()),
+                      );
+                    }),
+                    _buildProfileOption(Icons.star_border, 'Rate this app', () {
+                       Navigator.push(
+                        context,
+                        MaterialPageRoute(builder: (context) => FeedbackScreen()),
+                      );
+                    }),
                     _buildProfileOption(Icons.logout, 'Log out', () {}),
                   ],
                 ),
               ),
             ),
           ),
-          _buildBottomNavBar(),
         ],
       ),
     );
@@ -104,32 +131,6 @@ class ProfileScreen extends StatelessWidget {
             ],
           ),
         ),
-      ),
-    );
-  }
-
-  Widget _buildBottomNavBar() {
-    return Container(
-      decoration: BoxDecoration(
-        color: Colors.white,
-        boxShadow: [
-          BoxShadow(
-            color: Colors.grey.withOpacity(0.1),
-            spreadRadius: 1,
-            blurRadius: 5,
-            offset: const Offset(0, -3),
-          ),
-        ],
-      ),
-      padding: const EdgeInsets.symmetric(vertical: 10),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          IconButton(icon: const Icon(Icons.home_outlined), onPressed: () {}),
-          IconButton(icon: const Icon(Icons.search), onPressed: () {}),
-          IconButton(icon: const Icon(Icons.shopping_bag_outlined), onPressed: () {}),
-          IconButton(icon: const Icon(Icons.person, color: Colors.blue), onPressed: () {}),
-        ],
       ),
     );
   }

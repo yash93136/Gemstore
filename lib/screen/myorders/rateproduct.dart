@@ -14,21 +14,41 @@ class _RateProductScreenState extends State<RateProductScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        leading: IconButton(
-          icon: Icon(Icons.arrow_back_ios),
-          onPressed: () {
-            // Handle back button press
-          },
-        ),
-        title: Text('Rate Product'),
-        centerTitle: true,
-      ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
+             Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Stack(
+                  alignment: Alignment.center,
+                  children: [
+                    Row(
+                      children: [
+                        Container(
+                           decoration: const BoxDecoration(
+                            color: Colors.white,
+                            shape: BoxShape.circle,
+                          ),
+                          child: IconButton(
+                            icon: const Icon(Icons.arrow_back_ios_new,
+                                size: 20, color: Colors.black),
+                            onPressed: () => Navigator.pop(context),
+                          ),
+                        ),
+                      ],
+                    ),
+                    const Center(
+                      child: Text(
+                        'Rate Product',
+                        style: TextStyle(color: Colors.black, fontSize: 18),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 20,),
             _buildSubmitReviewBanner(),
             SizedBox(height: 24.0),
             _buildStarRating(),
